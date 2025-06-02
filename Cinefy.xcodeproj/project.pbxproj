@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		C61737D52DEE2EBE00957DB5 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = C61737D42DEE2EBE00957DB5 /* Lottie */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		C61737B52DEE2E9400957DB5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -65,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C61737D52DEE2EBE00957DB5 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +96,7 @@
 				C61737A02DEE2E9300957DB5 /* Cinefy */,
 				C61737B72DEE2E9400957DB5 /* CinefyTests */,
 				C61737C12DEE2E9400957DB5 /* CinefyUITests */,
+				C61737D32DEE2EBE00957DB5 /* Frameworks */,
 				C617379F2DEE2E9300957DB5 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -103,6 +109,13 @@
 				C61737BE2DEE2E9400957DB5 /* CinefyUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		C61737D32DEE2EBE00957DB5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,6 +138,7 @@
 			);
 			name = Cinefy;
 			packageProductDependencies = (
+				C61737D42DEE2EBE00957DB5 /* Lottie */,
 			);
 			productName = Cinefy;
 			productReference = C617379E2DEE2E9300957DB5 /* Cinefy.app */;
@@ -208,6 +222,9 @@
 			);
 			mainGroup = C61737952DEE2E9300957DB5;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				C61737D22DEE2EA100957DB5 /* XCRemoteSwiftPackageReference "lottie-spm" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = C617379F2DEE2E9300957DB5 /* Products */;
 			projectDirPath = "";
@@ -571,6 +588,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C61737D22DEE2EA100957DB5 /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C61737D42DEE2EBE00957DB5 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C61737D22DEE2EA100957DB5 /* XCRemoteSwiftPackageReference "lottie-spm" */;
+			productName = Lottie;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C61737962DEE2E9300957DB5 /* Project object */;
 }
