@@ -17,7 +17,7 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Cinefy" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NeH-9d-Lip">
                                 <rect key="frame" x="84" y="383" width="224" height="86"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="71"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="60"/>
                                 <color key="textColor" red="0.98896200570000004" green="0.99183422330000004" blue="0.89093721240000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -25,10 +25,10 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="0.031372549019607843" green="0.054901960784313725" blue="0.14117647058823529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="NeH-9d-Lip" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="265" id="7LY-zu-eGT"/>
-                            <constraint firstItem="NeH-9d-Lip" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="gu9-1x-5DU"/>
-                            <constraint firstItem="NeH-9d-Lip" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="hH9-Oh-dJI"/>
-                            <constraint firstItem="NeH-9d-Lip" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="84" id="zdq-WT-M0x"/>
+                            <constraint firstItem="NeH-9d-Lip" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Dlg-Je-oqr"/>
+                            <constraint firstItem="NeH-9d-Lip" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="84" id="vZr-2j-5s7"/>
+                            <constraint firstItem="NeH-9d-Lip" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="265" id="vzw-aT-P7E"/>
+                            <constraint firstItem="NeH-9d-Lip" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="x99-gd-9qv"/>
                         </constraints>
                     </view>
                 </viewController>
