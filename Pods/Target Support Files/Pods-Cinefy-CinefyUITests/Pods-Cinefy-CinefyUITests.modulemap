@@ -1,0 +1,6 @@
+framework module Pods_Cinefy_CinefyUITests {
+  umbrella header "Pods-Cinefy-CinefyUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -7,81 +7,49 @@
 
 import UIKit
 import Lottie
+import HSCycleGalleryView
 
+class HomeVC: UIViewController, HSCycleGalleryViewDelegate {
 
-class HomeVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    @IBOutlet weak var pagerContainer: UIView!
 
-    @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var pageControl: UIPageControl!
-    
     let images = ["mov1", "mov2", "mov3"]
-    var timer: Timer?
-    var currentIndex = 0
+    let pager = HSCycleGalleryView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 200))
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        startTimer()
-        
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        
-        pageControl.numberOfPages = images.count
-        pageControl.currentPage = 0
-        
-        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.scrollDirection = .horizontal
-            layout.minimumLineSpacing = 0
+
+        let darkBackground = UIColor(red: 8/255, green: 14/255, blue: 36/255, alpha: 1.0)
+
+        view.backgroundColor = darkBackground
+        pagerContainer.backgroundColor = darkBackground
+        pager.backgroundColor = darkBackground
+
+        // CollectionView arka plan rengini değiştir
+        if let collectionView = pager.subviews.first(where: { $0 is UICollectionView }) as? UICollectionView {
+            collectionView.backgroundColor = darkBackground
         }
 
-        collectionView.isPagingEnabled = true
-        collectionView.showsHorizontalScrollIndicator = false
-    }
-    
-    func startTimer() {
-        timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(moveToNextSlide), userInfo: nil, repeats: true)
-    }
-    
-    func stopTimer() {
-        timer?.invalidate()
-        timer = nil
-    }
-    
-   @objc func moveToNextSlide() {
-        currentIndex += 1
-        if currentIndex >= images.count {
-            currentIndex = 0
-        }
-        
-        let indexPath = IndexPath(item: currentIndex, section: 0)
-        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-        pageControl.currentPage = currentIndex
+        // ✅ PagerCell.xib'i kaydet (XIB dosyasının adı doğru olmalı)
+        let nib = UINib(nibName: "PagerCell", bundle: nil)
+        pager.register(nib: nib, forCellReuseIdentifier: "PagerCell")
+
+        pager.delegate = self
+        pagerContainer.addSubview(pager)
+        pager.reloadData()
     }
 
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    // ✅ Görsel sayısı
+    func numberOfItemInCycleGalleryView(_ cycleGalleryView: HSCycleGalleryView) -> Int {
         return images.count
     }
 
-    func collectionView(_ collectionView: UICollectionView,
-                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath)
-        if let imageView = cell.contentView.subviews.first(where: { $0 is UIImageView }) as? UIImageView {
-            imageView.image = UIImage(named: images[indexPath.item])
+    // ✅ Hücre oluşturma ve görsel atama
+    func cycleGalleryView(_ cycleGalleryView: HSCycleGalleryView, cellForItemAtIndex index: Int) -> UICollectionViewCell {
+        guard let cell = cycleGalleryView.dequeueReusableCell(withIdentifier: "PagerCell", for: IndexPath(item: index, section: 0)) as? PagerCell else {
+            fatalError("PagerCell could not be dequeued or casted.")
         }
+        cell.imageView.image = UIImage(named: images[index])
         return cell
     }
-
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return collectionView.frame.size
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let pageIndex = round(scrollView.contentOffset.x / scrollView.frame.width)
-        currentIndex = Int(pageIndex)
-        pageControl.currentPage = currentIndex
-    }
 }
-
-
