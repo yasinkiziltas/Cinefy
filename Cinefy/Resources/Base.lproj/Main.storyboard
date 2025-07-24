@@ -52,7 +52,7 @@
                     <tabBarItem key="tabBarItem" title="" id="puc-Xk-BLI">
                         <imageReference key="image" image="heart.fill" catalog="system" renderingMode="hierarchical">
                             <hierarchicalColors>
-                                <color red="0.89501139210000002" green="0.99183422330000004" blue="0.83104098810000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color red="0.4392156862745098" green="0.30588235294117649" blue="0.9882352941176471" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color red="0.86719745950000005" green="0.99183422330000004" blue="0.76258977120000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color systemColor="tertiaryLabelColor"/>
                             </hierarchicalColors>
@@ -76,7 +76,7 @@
                     <tabBarItem key="tabBarItem" title="" id="E82-6u-LgN">
                         <imageReference key="image" image="person.fill" catalog="system" renderingMode="hierarchical">
                             <hierarchicalColors>
-                                <color red="0.86719745950000005" green="0.99183422330000004" blue="0.76258977120000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color red="0.4392156862745098" green="0.30588235294117649" blue="0.9882352941176471" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color systemColor="secondaryLabelColor"/>
                                 <color systemColor="tertiaryLabelColor"/>
                             </hierarchicalColors>
@@ -135,6 +135,54 @@
                                 <color key="backgroundColor" red="0.031372549019607843" green="0.054901960784313725" blue="0.14117647058823529" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" red="0.031372549019607843" green="0.054901960784313725" blue="0.14117647058823529" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UOp-P9-iLK">
+                                <rect key="frame" x="37" y="428" width="75" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Aksiyon">
+                                    <fontDescription key="titleFontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                    <color key="baseBackgroundColor" red="0.44705882352941173" green="0.29803921568627451" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="btnAction:" destination="apv-3Q-4em" eventType="touchUpInside" id="gof-A2-WUh"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FFY-we-1ao">
+                                <rect key="frame" x="120" y="428" width="65" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Korku">
+                                    <fontDescription key="titleFontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                    <color key="baseBackgroundColor" red="0.14509803921568626" green="0.1764705882352941" blue="0.30980392156862746" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="btnHorror:" destination="apv-3Q-4em" eventType="touchUpInside" id="dG6-T1-Z2g"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X5R-GD-cKG">
+                                <rect key="frame" x="193" y="428" width="74" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Komedi">
+                                    <fontDescription key="titleFontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
+                                    <color key="baseBackgroundColor" red="0.14509803921568626" green="0.1764705882352941" blue="0.30980392156862746" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="btnComedy:" destination="apv-3Q-4em" eventType="touchUpInside" id="Oxq-zU-ePK"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vrX-Gu-Lg7">
+                                <rect key="frame" x="275" y="428" width="80" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Romantik">
+                                    <fontDescription key="titleFontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
+                                    <color key="baseBackgroundColor" red="0.14509803921568626" green="0.1764705882352941" blue="0.30980392156862746" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="btnRomance:" destination="apv-3Q-4em" eventType="touchUpInside" id="CoV-S7-luj"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="lFB-Sz-4IQ"/>
                         <color key="backgroundColor" red="0.031372549019607843" green="0.054901960784313725" blue="0.14117647058823529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -156,10 +204,10 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" id="byK-oQ-2fo">
-                        <imageReference key="image" image="house.circle" catalog="system" renderingMode="hierarchical">
+                        <imageReference key="image" image="house.fill" catalog="system" renderingMode="hierarchical">
                             <hierarchicalColors>
-                                <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color red="0.89501139210000002" green="0.99183422330000004" blue="0.83104098810000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color red="0.4392156862745098" green="0.30588235294117649" blue="0.9882352941176471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color systemColor="secondaryLabelColor"/>
                                 <color systemColor="linkColor"/>
                             </hierarchicalColors>
                         </imageReference>
@@ -195,7 +243,7 @@
     <resources>
         <image name="bell" catalog="system" width="125" height="128"/>
         <image name="heart.fill" catalog="system" width="128" height="107"/>
-        <image name="house.circle" catalog="system" width="128" height="123"/>
+        <image name="house.fill" catalog="system" width="128" height="104"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="userIcon" width="512" height="512"/>
         <systemColor name="linkColor">

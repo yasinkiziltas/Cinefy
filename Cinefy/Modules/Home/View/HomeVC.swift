@@ -52,4 +52,20 @@ class HomeVC: UIViewController, HSCycleGalleryViewDelegate {
         cell.imageView.image = UIImage(named: images[index])
         return cell
     }
+    
+    
+    @IBAction func btnAction(_ sender: Any) {
+        
+    }
+    
+    @IBAction func btnHorror(_ sender: Any) {
+        
+    }
+    @IBAction func btnComedy(_ sender: Any) {
+        
+    }
+    @IBAction func btnRomance(_ sender: Any) {
+        
+    }
+    
 }
