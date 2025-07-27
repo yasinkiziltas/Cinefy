@@ -12,12 +12,24 @@ import HSCycleGalleryView
 class HomeVC: UIViewController, HSCycleGalleryViewDelegate {
 
     @IBOutlet weak var pagerContainer: UIView!
-
-    let images = ["mov1", "mov2", "mov3"]
+    var movies: [Movie] = []
     let pager = HSCycleGalleryView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 200))
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        MovieService.shared.fetchMovies { result in
+            switch result {
+            case .success(let movies):
+                DispatchQueue.main.async {
+                    self.movies = movies
+                    self.pager.reloadData()
+                    //print(movies)
+                }
+            case .failure(let error):
+                print("Hata: \(error)")
+            }
+        }
 
         let darkBackground = UIColor(red: 8/255, green: 14/255, blue: 36/255, alpha: 1.0)
 
@@ -36,36 +48,68 @@ class HomeVC: UIViewController, HSCycleGalleryViewDelegate {
 
         pager.delegate = self
         pagerContainer.addSubview(pager)
-        pager.reloadData()
+    }
+    
+    func getMoviesForGenre(genreId: Int) {
+        MovieService.shared.fetchMoviesByGenre(genreId: genreId) { result in
+            switch result {
+            case .success(let movies):
+                DispatchQueue.main.async {
+                    self.movies = movies
+                    self.pager.reloadData()
+                }
+            case .failure(let error):
+                print("Hata: \(error)")
+            }
+        }
     }
 
     // ✅ Görsel sayısı
     func numberOfItemInCycleGalleryView(_ cycleGalleryView: HSCycleGalleryView) -> Int {
-        return images.count
+        return movies.count
     }
 
     // ✅ Hücre oluşturma ve görsel atama
     func cycleGalleryView(_ cycleGalleryView: HSCycleGalleryView, cellForItemAtIndex index: Int) -> UICollectionViewCell {
         guard let cell = cycleGalleryView.dequeueReusableCell(withIdentifier: "PagerCell", for: IndexPath(item: index, section: 0)) as? PagerCell else {
-            fatalError("PagerCell could not be dequeued or casted.")
+            return UICollectionViewCell()
         }
-        cell.imageView.image = UIImage(named: images[index])
+
+        let movie = movies[index]
+        let imageUrl = URL(string: "https://image.tmdb.org/t/p/w500\(movie.posterPath)")
+
+        // Basit image loader
+        URLSession.shared.dataTask(with: imageUrl!) { data, _, _ in
+            if let data = data {
+                DispatchQueue.main.async {
+                    cell.imageView.image = UIImage(data: data)
+                }
+            }
+        }.resume()
+
         return cell
     }
     
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToCategory",
+           let destination = segue.destination as? MovieCategoryVC,
+           let genreId = sender as? Int {
+            destination.selectedGenreId = genreId
+        }
+    }
+
     @IBAction func btnAction(_ sender: Any) {
-        
+        self.performSegue(withIdentifier: "goToCategory", sender: 28)
     }
     
     @IBAction func btnHorror(_ sender: Any) {
-        
+        self.performSegue(withIdentifier: "goToCategory", sender: 27)
     }
     @IBAction func btnComedy(_ sender: Any) {
-        
+        self.performSegue(withIdentifier: "goToCategory", sender: 35)
     }
     @IBAction func btnRomance(_ sender: Any) {
-        
+        self.performSegue(withIdentifier: "goToCategory", sender: 10749)
     }
     
 }
