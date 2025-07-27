@@ -180,23 +180,15 @@
                         <viewLayoutGuide key="safeArea" id="lFB-Sz-4IQ"/>
                         <color key="backgroundColor" red="0.031372549019607843" green="0.054901960784313725" blue="0.14117647058823529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" id="byK-oQ-2fo">
-                        <imageReference key="image" image="house.fill" catalog="system" renderingMode="hierarchical">
-                            <hierarchicalColors>
-                                <color red="0.4392156862745098" green="0.30588235294117649" blue="0.9882352941176471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color systemColor="secondaryLabelColor"/>
-                                <color systemColor="linkColor"/>
-                            </hierarchicalColors>
-                        </imageReference>
-                    </tabBarItem>
+                    <navigationItem key="navigationItem" id="wVs-q7-irN"/>
                     <connections>
                         <outlet property="pagerContainer" destination="mw3-wk-7u3" id="R8R-IV-5Sj"/>
-                        <segue destination="cZT-5D-ch7" kind="presentation" identifier="goToCategory" modalPresentationStyle="fullScreen" id="v8J-3c-tRj"/>
+                        <segue destination="cZT-5D-ch7" kind="show" identifier="goToCategory" id="v8J-3c-tRj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6FP-2f-CuS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3100" y="-491.54929577464793"/>
+            <point key="canvasLocation" x="4026.7175572519081" y="-491.54929577464793"/>
         </scene>
         <!--Movie CategoryVC-->
         <scene sceneID="huY-tK-AV3">
@@ -207,16 +199,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="fpK-qY-8wm">
-                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <rect key="frame" x="0.0" y="334" width="393" height="401"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" systemColor="tertiarySystemFillColor"/>
+                                <color key="sectionIndexBackgroundColor" red="0.031372549019607843" green="0.054901960784313725" blue="0.14117647058823529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="categoryCell" id="041-YC-ee2">
-                                        <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="categoryCell" rowHeight="87" id="041-YC-ee2">
+                                        <rect key="frame" x="0.0" y="50" width="393" height="87"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="041-YC-ee2" id="k7G-5q-hXo">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="87"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.031372549019607843" green="0.054901960784313725" blue="0.14117647058823529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -227,7 +223,7 @@
                             <constraint firstItem="fpK-qY-8wm" firstAttribute="leading" secondItem="8Zp-rU-DH1" secondAttribute="leading" id="Ahk-Ny-6IQ"/>
                             <constraint firstItem="8Zp-rU-DH1" firstAttribute="trailing" secondItem="fpK-qY-8wm" secondAttribute="trailing" id="Bvz-46-kVG"/>
                             <constraint firstItem="8Zp-rU-DH1" firstAttribute="bottom" secondItem="fpK-qY-8wm" secondAttribute="bottom" id="Ifq-AA-FIK"/>
-                            <constraint firstItem="fpK-qY-8wm" firstAttribute="top" secondItem="8Zp-rU-DH1" secondAttribute="top" id="rfH-jD-gCC"/>
+                            <constraint firstItem="fpK-qY-8wm" firstAttribute="top" secondItem="8Zp-rU-DH1" secondAttribute="top" constant="172" id="rfH-jD-gCC"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Rrg-j7-roc"/>
@@ -237,7 +233,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CFf-7U-vH6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3905" y="-492"/>
+            <point key="canvasLocation" x="4831.2977099236641" y="-492.25352112676057"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="kco-3k-NHb">
@@ -249,7 +245,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="apv-3Q-4em" kind="relationship" relationship="viewControllers" id="2eB-oX-WQH"/>
+                        <segue destination="67r-rr-czx" kind="relationship" relationship="viewControllers" id="2eB-oX-WQH"/>
                         <segue destination="w9U-il-eo7" kind="relationship" relationship="viewControllers" id="6zg-ys-kDM"/>
                         <segue destination="J4S-O2-pLV" kind="relationship" relationship="viewControllers" id="ZFT-bX-Ujd"/>
                     </connections>
@@ -257,6 +253,33 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eIF-Ha-AsX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1781" y="-27"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="DCh-cD-muQ">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="67r-rr-czx" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" id="byK-oQ-2fo">
+                        <imageReference key="image" image="house.fill" catalog="system" renderingMode="hierarchical">
+                            <hierarchicalColors>
+                                <color red="0.4392156862745098" green="0.30588235294117649" blue="0.9882352941176471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color systemColor="secondaryLabelColor"/>
+                                <color systemColor="linkColor"/>
+                            </hierarchicalColors>
+                        </imageReference>
+                    </tabBarItem>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="C5S-Uy-ibL">
+                        <rect key="frame" x="0.0" y="118" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="apv-3Q-4em" kind="relationship" relationship="rootViewController" id="egM-6r-4tM"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="u2j-Ih-XuJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3100" y="-491.54929577464793"/>
         </scene>
     </scenes>
     <resources>
@@ -271,14 +294,14 @@
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemGray5Color">
             <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tertiaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29803921568627451" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tertiarySystemFillColor">
+            <color red="0.46274509803921571" green="0.46274509803921571" blue="0.50196078431372548" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

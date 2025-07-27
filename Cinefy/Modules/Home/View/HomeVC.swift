@@ -14,9 +14,40 @@ class HomeVC: UIViewController, HSCycleGalleryViewDelegate {
     @IBOutlet weak var pagerContainer: UIView!
     var movies: [Movie] = []
     let pager = HSCycleGalleryView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 200))
+    
+    let darkBackground = UIColor(red: 8/255, green: 14/255, blue: 36/255, alpha: 1.0)
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Arka plan ayarları
+                view.backgroundColor = darkBackground
+                pagerContainer.backgroundColor = darkBackground
+                pager.backgroundColor = darkBackground
+                self.extendedLayoutIncludesOpaqueBars = true
+                self.edgesForExtendedLayout = [.top, .bottom]
+
+                // Navigation bar koyu renk
+                navigationController?.navigationBar.barTintColor = darkBackground
+                navigationController?.navigationBar.isTranslucent = false
+                navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
+
+                // CollectionView arka planını da koyu yap
+                if let collectionView = pager.subviews.first(where: { $0 is UICollectionView }) as? UICollectionView {
+                    collectionView.backgroundColor = darkBackground
+                }
+        
+        // CollectionView arka plan rengini değiştir
+        if let collectionView = pager.subviews.first(where: { $0 is UICollectionView }) as? UICollectionView {
+            collectionView.backgroundColor = darkBackground
+        }
+
+        // ✅ PagerCell.xib'i kaydet (XIB dosyasının adı doğru olmalı)
+        let nib = UINib(nibName: "PagerCell", bundle: nil)
+        pager.register(nib: nib, forCellReuseIdentifier: "PagerCell")
+
+        pager.delegate = self
+        pagerContainer.addSubview(pager)
         
         MovieService.shared.fetchMovies { result in
             switch result {
@@ -30,24 +61,6 @@ class HomeVC: UIViewController, HSCycleGalleryViewDelegate {
                 print("Hata: \(error)")
             }
         }
-
-        let darkBackground = UIColor(red: 8/255, green: 14/255, blue: 36/255, alpha: 1.0)
-
-        view.backgroundColor = darkBackground
-        pagerContainer.backgroundColor = darkBackground
-        pager.backgroundColor = darkBackground
-
-        // CollectionView arka plan rengini değiştir
-        if let collectionView = pager.subviews.first(where: { $0 is UICollectionView }) as? UICollectionView {
-            collectionView.backgroundColor = darkBackground
-        }
-
-        // ✅ PagerCell.xib'i kaydet (XIB dosyasının adı doğru olmalı)
-        let nib = UINib(nibName: "PagerCell", bundle: nil)
-        pager.register(nib: nib, forCellReuseIdentifier: "PagerCell")
-
-        pager.delegate = self
-        pagerContainer.addSubview(pager)
     }
     
     func getMoviesForGenre(genreId: Int) {
