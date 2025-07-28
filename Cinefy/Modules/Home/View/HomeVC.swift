@@ -19,23 +19,25 @@ class HomeVC: UIViewController, HSCycleGalleryViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.backButtonTitle = "Geri"
+
         
         // Arka plan ayarları
-                view.backgroundColor = darkBackground
-                pagerContainer.backgroundColor = darkBackground
-                pager.backgroundColor = darkBackground
-                self.extendedLayoutIncludesOpaqueBars = true
-                self.edgesForExtendedLayout = [.top, .bottom]
+        view.backgroundColor = darkBackground
+        pagerContainer.backgroundColor = darkBackground
+        pager.backgroundColor = darkBackground
+        self.extendedLayoutIncludesOpaqueBars = true
+        self.edgesForExtendedLayout = [.top, .bottom]
 
-                // Navigation bar koyu renk
-                navigationController?.navigationBar.barTintColor = darkBackground
-                navigationController?.navigationBar.isTranslucent = false
-                navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
+        // Navigation bar koyu renk
+        navigationController?.navigationBar.barTintColor = darkBackground
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
 
-                // CollectionView arka planını da koyu yap
-                if let collectionView = pager.subviews.first(where: { $0 is UICollectionView }) as? UICollectionView {
-                    collectionView.backgroundColor = darkBackground
-                }
+        // CollectionView arka planını da koyu yap
+        if let collectionView = pager.subviews.first(where: { $0 is UICollectionView }) as? UICollectionView {
+            collectionView.backgroundColor = darkBackground
+        }
         
         // CollectionView arka plan rengini değiştir
         if let collectionView = pager.subviews.first(where: { $0 is UICollectionView }) as? UICollectionView {
@@ -62,27 +64,13 @@ class HomeVC: UIViewController, HSCycleGalleryViewDelegate {
             }
         }
     }
-    
-    func getMoviesForGenre(genreId: Int) {
-        MovieService.shared.fetchMoviesByGenre(genreId: genreId) { result in
-            switch result {
-            case .success(let movies):
-                DispatchQueue.main.async {
-                    self.movies = movies
-                    self.pager.reloadData()
-                }
-            case .failure(let error):
-                print("Hata: \(error)")
-            }
-        }
-    }
 
-    // ✅ Görsel sayısı
+    //Görsel sayısı
     func numberOfItemInCycleGalleryView(_ cycleGalleryView: HSCycleGalleryView) -> Int {
         return movies.count
     }
 
-    // ✅ Hücre oluşturma ve görsel atama
+    //Hücre oluşturma ve görsel atama
     func cycleGalleryView(_ cycleGalleryView: HSCycleGalleryView, cellForItemAtIndex index: Int) -> UICollectionViewCell {
         guard let cell = cycleGalleryView.dequeueReusableCell(withIdentifier: "PagerCell", for: IndexPath(item: index, section: 0)) as? PagerCell else {
             return UICollectionViewCell()
@@ -91,7 +79,7 @@ class HomeVC: UIViewController, HSCycleGalleryViewDelegate {
         let movie = movies[index]
         let imageUrl = URL(string: "https://image.tmdb.org/t/p/w500\(movie.posterPath)")
 
-        // Basit image loader
+        //Basit image loader
         URLSession.shared.dataTask(with: imageUrl!) { data, _, _ in
             if let data = data {
                 DispatchQueue.main.async {

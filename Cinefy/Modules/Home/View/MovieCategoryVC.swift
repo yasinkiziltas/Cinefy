@@ -40,7 +40,7 @@ class MovieCategoryVC: UIViewController {
         tabBarController?.tabBar.backgroundColor = darkColor
         tabBarController?.tabBar.isTranslucent = false
 
-        // Veri çekme
+        // İlgili kategorideki verileri çekme
         if let genreId = selectedGenreId {
             MovieService.shared.fetchMoviesByGenre(genreId: genreId) { result in
                 switch result {
@@ -68,14 +68,33 @@ extension MovieCategoryVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath)
-        cell.textLabel?.text = movies[indexPath.row].title
-        cell.textLabel?.textColor = .white
+        let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath) as! CategoryTableViewCell
+         let movie = movies[indexPath.row]
+
+         // Başlık ayarları
+         cell.titleLabel?.text = movie.title
+         cell.titleLabel?.textColor = .white
+         cell.backgroundColor = .clear
+        
+        let imageUrlString = "https://image.tmdb.org/t/p/w500\(movie.posterPath)"
+           
+           if let imageUrl = URL(string: imageUrlString) {
+               URLSession.shared.dataTask(with: imageUrl) { data, response, error in
+                   if let data = data, let image = UIImage(data: data) {
+                       DispatchQueue.main.async {
+                           // 🧠 Hücre tekrar kullanılabileceği için kontrol eklenebilir
+                           if let visibleCell = tableView.cellForRow(at: indexPath) as? CategoryTableViewCell {
+                               visibleCell.iconImageView.image = image
+                           }
+                       }
+                   }
+               }.resume()
+           }
         cell.backgroundColor = .clear // hücrenin arkası da koyu olsun
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Tıkladın")
+        
     }
 }

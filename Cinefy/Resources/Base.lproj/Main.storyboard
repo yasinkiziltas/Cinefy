@@ -198,33 +198,55 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="fpK-qY-8wm">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="fpK-qY-8wm">
                                 <rect key="frame" x="0.0" y="334" width="393" height="401"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" systemColor="tertiarySystemFillColor"/>
                                 <color key="sectionIndexBackgroundColor" red="0.031372549019607843" green="0.054901960784313725" blue="0.14117647058823529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="categoryCell" rowHeight="87" id="041-YC-ee2">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="categoryCell" rowHeight="87" id="041-YC-ee2" customClass="CategoryTableViewCell" customModule="Cinefy" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="393" height="87"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="041-YC-ee2" id="k7G-5q-hXo">
                                             <rect key="frame" x="0.0" y="0.0" width="393" height="87"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ljz-c8-Akn">
+                                                    <rect key="frame" x="10" y="10" width="150" height="67"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="150" id="Ntw-c5-J4f"/>
+                                                        <constraint firstAttribute="height" constant="128" id="vML-MP-fy5"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7wI-z1-WcR">
+                                                    <rect key="frame" x="170" y="21" width="41.333333333333343" height="45"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="7wI-z1-WcR" firstAttribute="leading" secondItem="Ljz-c8-Akn" secondAttribute="trailing" constant="10" id="DJy-gG-Z5a"/>
+                                                <constraint firstAttribute="bottom" secondItem="Ljz-c8-Akn" secondAttribute="bottom" constant="10" id="Dhw-Kj-XWa"/>
+                                                <constraint firstItem="7wI-z1-WcR" firstAttribute="top" secondItem="k7G-5q-hXo" secondAttribute="topMargin" constant="10" id="OVS-rC-8U6"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="7wI-z1-WcR" secondAttribute="bottom" constant="10" id="fDS-Ma-dKb"/>
+                                                <constraint firstItem="Ljz-c8-Akn" firstAttribute="top" secondItem="k7G-5q-hXo" secondAttribute="top" constant="10" id="smS-I4-2xJ"/>
+                                                <constraint firstItem="Ljz-c8-Akn" firstAttribute="leading" secondItem="k7G-5q-hXo" secondAttribute="leading" constant="10" id="tQP-7D-O06"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.031372549019607843" green="0.054901960784313725" blue="0.14117647058823529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="iconImageView" destination="Ljz-c8-Akn" id="v8C-eN-yjb"/>
+                                            <outlet property="titleLabel" destination="7wI-z1-WcR" id="hEI-uQ-N2x"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="8Zp-rU-DH1"/>
                         <color key="backgroundColor" red="0.031372549019607843" green="0.054901960784313725" blue="0.14117647058823529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="fpK-qY-8wm" firstAttribute="leading" secondItem="8Zp-rU-DH1" secondAttribute="leading" id="Ahk-Ny-6IQ"/>
-                            <constraint firstItem="8Zp-rU-DH1" firstAttribute="trailing" secondItem="fpK-qY-8wm" secondAttribute="trailing" id="Bvz-46-kVG"/>
-                            <constraint firstItem="8Zp-rU-DH1" firstAttribute="bottom" secondItem="fpK-qY-8wm" secondAttribute="bottom" id="Ifq-AA-FIK"/>
-                            <constraint firstItem="fpK-qY-8wm" firstAttribute="top" secondItem="8Zp-rU-DH1" secondAttribute="top" constant="172" id="rfH-jD-gCC"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Rrg-j7-roc"/>
                     <connections>
