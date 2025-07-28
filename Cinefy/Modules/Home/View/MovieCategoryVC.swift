@@ -13,7 +13,6 @@ class MovieCategoryVC: UIViewController {
     var selectedGenreId: Int?
     var movies: [Movie] = []
     
-    // DARK RENK (Global sabit gibi)
     let darkColor = UIColor(red: 8/255, green: 14/255, blue: 36/255, alpha: 1)
 
     override func viewDidLoad() {
@@ -69,12 +68,35 @@ extension MovieCategoryVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath) as! CategoryTableViewCell
+        
          let movie = movies[indexPath.row]
+         let genreMap: [Int: String] = [
+               28: "Aksiyon",
+               12: "Macera",
+               16: "Animasyon",
+               35: "Komedi",
+               80: "Suç",
+               18: "Dram",
+               14: "Fantastik",
+               27: "Korku",
+               10749: "Romantik",
+               53: "Gerilim",
+               10751: "Aile",
+               878: "Bilim Kurgu"
+           ]
 
          // Başlık ayarları
          cell.titleLabel?.text = movie.title
          cell.titleLabel?.textColor = .white
          cell.backgroundColor = .clear
+        
+        //Tür
+        if let genreIDs = movie.genreIDs {
+            let genreNames = genreIDs.compactMap { genreMap[$0] }
+            cell.movieType.text = genreNames.joined(separator: ", ")
+        } else {
+            cell.movieType.text = "Tür bilgisi yok"
+        }
         
         let imageUrlString = "https://image.tmdb.org/t/p/w500\(movie.posterPath)"
            
@@ -82,7 +104,6 @@ extension MovieCategoryVC: UITableViewDataSource, UITableViewDelegate {
                URLSession.shared.dataTask(with: imageUrl) { data, response, error in
                    if let data = data, let image = UIImage(data: data) {
                        DispatchQueue.main.async {
-                           // 🧠 Hücre tekrar kullanılabileceği için kontrol eklenebilir
                            if let visibleCell = tableView.cellForRow(at: indexPath) as? CategoryTableViewCell {
                                visibleCell.iconImageView.image = image
                            }
@@ -92,6 +113,10 @@ extension MovieCategoryVC: UITableViewDataSource, UITableViewDelegate {
            }
         cell.backgroundColor = .clear // hücrenin arkası da koyu olsun
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 150
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
