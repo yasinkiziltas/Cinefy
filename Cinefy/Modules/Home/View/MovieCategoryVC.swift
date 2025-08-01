@@ -10,13 +10,44 @@ import UIKit
 class MovieCategoryVC: UIViewController {
     
     @IBOutlet weak var dataTable: UITableView!
+    @IBOutlet weak var txtSearch: UITextField!
+    @IBOutlet weak var txtTitle: UILabel!
+    @IBOutlet weak var txtSubTitle: UILabel!
+    
     var selectedGenreId: Int?
     var movies: [Movie] = []
+    let genreMap: [Int: String] = [
+          28: "Aksiyon",
+          12: "Macera",
+          16: "Animasyon",
+          35: "Komedi",
+          80: "Suç",
+          18: "Dram",
+          14: "Fantastik",
+          27: "Korku",
+          10749: "Romantik",
+          53: "Gerilim",
+          10751: "Aile",
+          878: "Bilim Kurgu"
+      ]
     
     let darkColor = UIColor(red: 8/255, green: 14/255, blue: 36/255, alpha: 1)
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        txtTitle.text = "Sonuçlar"
+        txtSubTitle.text = "şu kategori için: " + (genreMap[selectedGenreId ?? 0] ?? "Kategori")
+        
+        //Searchbar
+        txtSearch.attributedPlaceholder = NSAttributedString (
+            string: "Ara..",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.white]
+        )
+        txtSearch.leftView = UIImageView(image: UIImage(systemName: "magnifyingglass"))
+        txtSearch.leftView?.frame = CGRect(x: 5, y: 15, width: 20, height: 20)
+        txtSearch.leftView?.tintColor = UIColor.white
+        txtSearch.leftViewMode = .always
         
         // Safe Area dışı alanlar da dahil tüm view boyanır
         self.view.backgroundColor = darkColor
@@ -70,21 +101,7 @@ extension MovieCategoryVC: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath) as! CategoryTableViewCell
         
          let movie = movies[indexPath.row]
-         let genreMap: [Int: String] = [
-               28: "Aksiyon",
-               12: "Macera",
-               16: "Animasyon",
-               35: "Komedi",
-               80: "Suç",
-               18: "Dram",
-               14: "Fantastik",
-               27: "Korku",
-               10749: "Romantik",
-               53: "Gerilim",
-               10751: "Aile",
-               878: "Bilim Kurgu"
-           ]
-
+         
          // Başlık ayarları
          cell.titleLabel?.text = movie.title
          cell.titleLabel?.textColor = .white
@@ -98,8 +115,8 @@ extension MovieCategoryVC: UITableViewDataSource, UITableViewDelegate {
             cell.movieType.text = "Tür bilgisi yok"
         }
         
+        //Resim
         let imageUrlString = "https://image.tmdb.org/t/p/w500\(movie.posterPath)"
-           
            if let imageUrl = URL(string: imageUrlString) {
                URLSession.shared.dataTask(with: imageUrl) { data, response, error in
                    if let data = data, let image = UIImage(data: data) {
@@ -123,3 +140,4 @@ extension MovieCategoryVC: UITableViewDataSource, UITableViewDelegate {
         
     }
 }
+
