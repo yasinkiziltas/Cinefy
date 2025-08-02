@@ -9,10 +9,13 @@ import UIKit
 import Lottie
 import HSCycleGalleryView
 
-class HomeVC: UIViewController, HSCycleGalleryViewDelegate {
+class HomeVC: UIViewController, HSCycleGalleryViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     @IBOutlet weak var pagerContainer: UIView!
+    @IBOutlet weak var collectionView: UICollectionView!
     var movies: [Movie] = []
+    var populerMovies: [Movie] = []
+    
     let pager = HSCycleGalleryView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 200))
     
     let darkBackground = UIColor(red: 8/255, green: 14/255, blue: 36/255, alpha: 1.0)
@@ -20,7 +23,6 @@ class HomeVC: UIViewController, HSCycleGalleryViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.backButtonTitle = "Geri"
-
         
         // Arka plan ayarları
         view.backgroundColor = darkBackground
@@ -44,20 +46,37 @@ class HomeVC: UIViewController, HSCycleGalleryViewDelegate {
             collectionView.backgroundColor = darkBackground
         }
 
-        // ✅ PagerCell.xib'i kaydet (XIB dosyasının adı doğru olmalı)
+        // ✅ Nib ayarlama
         let nib = UINib(nibName: "PagerCell", bundle: nil)
         pager.register(nib: nib, forCellReuseIdentifier: "PagerCell")
-
         pager.delegate = self
         pagerContainer.addSubview(pager)
         
-        MovieService.shared.fetchMovies { result in
+        let nibPopular = UINib(nibName: "PopularMoviesCard", bundle: nil)
+        collectionView.register(nibPopular, forCellWithReuseIdentifier: "PopularMoviesCard")
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
+        //Tüm filmler
+        MovieService.shared.fetchRandomMovies { result in
             switch result {
             case .success(let movies):
                 DispatchQueue.main.async {
                     self.movies = movies
                     self.pager.reloadData()
-                    //print(movies)
+                }
+            case .failure(let error):
+                print("Hata: \(error)")
+            }
+        }
+        
+        //Popüler
+        MovieService.shared.fetchMoviesByPopularity { result in
+            switch result {
+            case .success(let populerMovies):
+                DispatchQueue.main.async {
+                    self.populerMovies = populerMovies
+                    self.collectionView.reloadData()
                 }
             case .failure(let error):
                 print("Hata: \(error)")
@@ -98,7 +117,8 @@ class HomeVC: UIViewController, HSCycleGalleryViewDelegate {
             destination.selectedGenreId = genreId
         }
     }
-
+    
+    //Kategori butonları
     @IBAction func btnAction(_ sender: Any) {
         self.performSegue(withIdentifier: "goToCategory", sender: 28)
     }
@@ -111,6 +131,21 @@ class HomeVC: UIViewController, HSCycleGalleryViewDelegate {
     }
     @IBAction func btnRomance(_ sender: Any) {
         self.performSegue(withIdentifier: "goToCategory", sender: 10749)
+    }
+    
+    //Populer filmler kısmı
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return populerMovies.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PopularMoviesCard", for: indexPath) as! PopularMoviesCard
+              cell.configure(with: populerMovies[indexPath.row])
+              return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 140, height: 200)
     }
     
 }

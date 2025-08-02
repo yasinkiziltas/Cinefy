@@ -9,7 +9,6 @@ import UIKit
 
 class PagerCell: UICollectionViewCell {
 
-   
     @IBOutlet weak var imageView: UIImageView!
     
     override func awakeFromNib() {
