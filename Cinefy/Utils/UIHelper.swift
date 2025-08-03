@@ -23,6 +23,7 @@ class UIHelper {
         controller.edgesForExtendedLayout = [.top, .bottom]
     }
     
+    //Navbar rengi
     static func navBarFunc(on controller: UIViewController) {
         //let darkBackground = UIColor(red: 8/255, green: 14/255, blue: 36/255, alpha: 1.0)
         //controller.navigationController?.navigationBar.barTintColor = darkBackground

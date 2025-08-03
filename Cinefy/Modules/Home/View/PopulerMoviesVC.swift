@@ -28,7 +28,8 @@ class PopulerMoviesVC: UIViewController, UICollectionViewDelegate, UICollectionV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.navigationItem.backButtonTitle = "Geri"
         UIHelper.backgroundColorFunc(on: self)
         
         let nib = UINib(nibName: "AllPopularMoviesCell", bundle: nil)
@@ -95,6 +96,21 @@ class PopulerMoviesVC: UIViewController, UICollectionViewDelegate, UICollectionV
     //Kenar boşlukları
     func collectionView(_ collectionView: UICollectionView,layout collectionViewLayout: UICollectionViewLayout,insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 20, left: 8, bottom: 20, right: 8)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ToMovieDetailVC" {
+             if let destinationVC = segue.destination as? DetailVC,
+             let movie = sender as? Movie {
+                 destinationVC.selectedMovie = movie
+             }
+                
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedMovie = movies[indexPath.row]
+        performSegue(withIdentifier: "ToMovieDetailVC", sender: selectedMovie)
     }
 
 }
