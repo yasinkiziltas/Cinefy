@@ -11,6 +11,20 @@ class PopulerMoviesVC: UIViewController, UICollectionViewDelegate, UICollectionV
 
     @IBOutlet weak var collectionView: UICollectionView!
     var movies: [Movie] = []
+    let genreMap: [Int: String] = [
+          28: "Aksiyon",
+          12: "Macera",
+          16: "Animasyon",
+          35: "Komedi",
+          80: "Suç",
+          18: "Dram",
+          14: "Fantastik",
+          27: "Korku",
+          10749: "Romantik",
+          53: "Gerilim",
+          10751: "Aile",
+          878: "Bilim Kurgu"
+      ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +39,7 @@ class PopulerMoviesVC: UIViewController, UICollectionViewDelegate, UICollectionV
         //Kaydırırken goruntu bozulmasın diye
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
                layout.estimatedItemSize = .zero
-           }
+        }
         
         MovieService.shared.fetchMoviesByPopularity { result in
             switch result {
@@ -47,6 +61,15 @@ class PopulerMoviesVC: UIViewController, UICollectionViewDelegate, UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AllPopularMoviesCell", for: indexPath) as! AllPopularMoviesCell
+        
+        let movie = movies[indexPath.row]
+        
+        if let genreIDs = movie.genreIDs {
+            let genreNames = genreIDs.compactMap { genreMap[$0] }
+            let firstTwo = genreNames.prefix(2)
+            cell.txtGenre.text = Array(firstTwo).joined(separator: ", ")
+        }
+        cell.txtTitle.text = movies[indexPath.row].title
         cell.configure(with: movies[indexPath.row])
         return cell
     }

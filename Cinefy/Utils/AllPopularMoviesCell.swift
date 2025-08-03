@@ -9,9 +9,13 @@ import UIKit
 
 class AllPopularMoviesCell: UICollectionViewCell {
     @IBOutlet weak var imgView: UIImageView!
+    @IBOutlet weak var txtTitle: UILabel!
+    @IBOutlet weak var txtGenre: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        imgView.layer.cornerRadius = 15
+        imgView.layer.masksToBounds = true
         
     }
     
