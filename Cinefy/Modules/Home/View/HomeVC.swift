@@ -13,40 +13,29 @@ class HomeVC: UIViewController, HSCycleGalleryViewDelegate, UICollectionViewDele
 
     @IBOutlet weak var pagerContainer: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
+    
     var movies: [Movie] = []
     var populerMovies: [Movie] = []
     
     let pager = HSCycleGalleryView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 200))
-    
-    let darkBackground = UIColor(red: 8/255, green: 14/255, blue: 36/255, alpha: 1.0)
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.backButtonTitle = "Geri"
         
         // Arka plan ayarları
-        view.backgroundColor = darkBackground
-        pagerContainer.backgroundColor = darkBackground
-        pager.backgroundColor = darkBackground
-        self.extendedLayoutIncludesOpaqueBars = true
-        self.edgesForExtendedLayout = [.top, .bottom]
+        UIHelper.backgroundColorFunc(on: self)
 
-        // Navigation bar koyu renk
-        navigationController?.navigationBar.barTintColor = darkBackground
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
+        // Navbar ayarları
+        UIHelper.navBarFunc(on: self)
 
-        // CollectionView arka planını da koyu yap
-        if let collectionView = pager.subviews.first(where: { $0 is UICollectionView }) as? UICollectionView {
-            collectionView.backgroundColor = darkBackground
-        }
-        
-        // CollectionView arka plan rengini değiştir
+        // CollectionView arka plan
+        let darkBackground = UIColor(red: 8/255, green: 14/255, blue: 36/255, alpha: 1.0)
         if let collectionView = pager.subviews.first(where: { $0 is UICollectionView }) as? UICollectionView {
             collectionView.backgroundColor = darkBackground
         }
 
-        // ✅ Nib ayarlama
+        //Nib ayarlama (.xib çağırma)
         let nib = UINib(nibName: "PagerCell", bundle: nil)
         pager.register(nib: nib, forCellReuseIdentifier: "PagerCell")
         pager.delegate = self
@@ -70,7 +59,7 @@ class HomeVC: UIViewController, HSCycleGalleryViewDelegate, UICollectionViewDele
             }
         }
         
-        //Popüler
+        //Popüler fimler
         MovieService.shared.fetchMoviesByPopularity { result in
             switch result {
             case .success(let populerMovies):
@@ -84,12 +73,11 @@ class HomeVC: UIViewController, HSCycleGalleryViewDelegate, UICollectionViewDele
         }
     }
 
-    //Görsel sayısı
+    //Rastgele filmler kısmı
     func numberOfItemInCycleGalleryView(_ cycleGalleryView: HSCycleGalleryView) -> Int {
         return movies.count
     }
 
-    //Hücre oluşturma ve görsel atama
     func cycleGalleryView(_ cycleGalleryView: HSCycleGalleryView, cellForItemAtIndex index: Int) -> UICollectionViewCell {
         guard let cell = cycleGalleryView.dequeueReusableCell(withIdentifier: "PagerCell", for: IndexPath(item: index, section: 0)) as? PagerCell else {
             return UICollectionViewCell()
@@ -98,7 +86,6 @@ class HomeVC: UIViewController, HSCycleGalleryViewDelegate, UICollectionViewDele
         let movie = movies[index]
         let imageUrl = URL(string: "https://image.tmdb.org/t/p/w500\(movie.posterPath)")
 
-        //Basit image loader
         URLSession.shared.dataTask(with: imageUrl!) { data, _, _ in
             if let data = data {
                 DispatchQueue.main.async {
@@ -110,6 +97,7 @@ class HomeVC: UIViewController, HSCycleGalleryViewDelegate, UICollectionViewDele
         return cell
     }
     
+    //Tıklanınca
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToCategory",
            let destination = segue.destination as? MovieCategoryVC,
@@ -145,7 +133,10 @@ class HomeVC: UIViewController, HSCycleGalleryViewDelegate, UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 140, height: 200)
+        return CGSize(width: 150, height: 200)
     }
     
+    @IBAction func btnAllPopularMovies(_ sender: Any) {
+        self.performSegue(withIdentifier: "toAllPopularMovies", sender: nil)
+    }
 }

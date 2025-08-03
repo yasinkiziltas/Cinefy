@@ -10,29 +10,29 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="PopularMoviesCard" customModule="Cinefy" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="155" height="129"/>
+            <rect key="frame" x="0.0" y="0.0" width="288" height="233"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="155" height="129"/>
+                <rect key="frame" x="0.0" y="0.0" width="288" height="233"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZMX-zw-9h3">
-                        <rect key="frame" x="0.0" y="0.0" width="155" height="129"/>
+                        <rect key="frame" x="0.0" y="0.0" width="282" height="226"/>
                     </imageView>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
-                <constraint firstItem="ZMX-zw-9h3" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="1Yg-ZM-dhG"/>
-                <constraint firstAttribute="bottom" secondItem="ZMX-zw-9h3" secondAttribute="bottom" id="5HL-Bp-GtS"/>
-                <constraint firstItem="ZMX-zw-9h3" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="cNW-bP-DeJ"/>
-                <constraint firstAttribute="trailing" secondItem="ZMX-zw-9h3" secondAttribute="trailing" id="dzp-zr-FFb"/>
+                <constraint firstAttribute="bottom" secondItem="ZMX-zw-9h3" secondAttribute="bottom" constant="7" id="I7B-yv-NBn"/>
+                <constraint firstItem="ZMX-zw-9h3" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="IfS-7C-2oY"/>
+                <constraint firstItem="ZMX-zw-9h3" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="MFd-8N-XTP"/>
+                <constraint firstAttribute="trailing" secondItem="ZMX-zw-9h3" secondAttribute="trailing" constant="6" id="Qla-zt-GDI"/>
             </constraints>
-            <size key="customSize" width="155" height="129"/>
+            <size key="customSize" width="288" height="233"/>
             <connections>
                 <outlet property="imageView" destination="ZMX-zw-9h3" id="Lbd-lD-9vO"/>
             </connections>
-            <point key="canvasLocation" x="209.92366412213741" y="15.140845070422536"/>
+            <point key="canvasLocation" x="308.39694656488547" y="51.760563380281695"/>
         </collectionViewCell>
     </objects>
 </document>

@@ -90,7 +90,7 @@ class MovieService {
             }
 
             guard let data = data else {
-                completion(.failure(NSError(domain: "Data yok", code: 400)))
+                completion(.failure(NSError(domain: "Kategoriye göre film yok", code: 400)))
                 return
             }
 
