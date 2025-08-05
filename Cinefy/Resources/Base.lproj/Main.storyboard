@@ -41,10 +41,10 @@
             </objects>
             <point key="canvasLocation" x="889" y="-27"/>
         </scene>
-        <!--View Controller-->
+        <!--FavoritesVC-->
         <scene sceneID="Te8-c6-7ak">
             <objects>
-                <viewController id="w9U-il-eo7" sceneMemberID="viewController">
+                <viewController id="w9U-il-eo7" customClass="FavoritesVC" customModule="Cinefy" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2Dr-WL-UiV">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -624,12 +624,37 @@
                     <connections>
                         <segue destination="67r-rr-czx" kind="relationship" relationship="viewControllers" id="2eB-oX-WQH"/>
                         <segue destination="w9U-il-eo7" kind="relationship" relationship="viewControllers" id="6zg-ys-kDM"/>
+                        <segue destination="BXD-UP-4ez" kind="relationship" relationship="viewControllers" id="R90-sH-qiq"/>
                         <segue destination="J4S-O2-pLV" kind="relationship" relationship="viewControllers" id="ZFT-bX-Ujd"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eIF-Ha-AsX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1781" y="-27"/>
+        </scene>
+        <!--NotifyVC-->
+        <scene sceneID="Eyn-Rh-HsJ">
+            <objects>
+                <viewController id="BXD-UP-4ez" customClass="NotifyVC" customModule="Cinefy" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Yma-KB-vAN">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="gbR-Me-a7M"/>
+                        <color key="backgroundColor" red="0.031372549019607843" green="0.054901960784313725" blue="0.14117647058823529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" id="ZKn-cF-YC1">
+                        <imageReference key="image" image="bell.fill" catalog="system" renderingMode="hierarchical">
+                            <hierarchicalColors>
+                                <color red="0.41960784309999999" green="0.30588235289999999" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color systemColor="secondaryLabelColor"/>
+                                <color systemColor="tertiaryLabelColor"/>
+                            </hierarchicalColors>
+                        </imageReference>
+                    </tabBarItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bbu-Wq-9jb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1769" y="-769"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="DCh-cD-muQ">
@@ -661,6 +686,7 @@
     </scenes>
     <resources>
         <image name="bell" catalog="system" width="125" height="128"/>
+        <image name="bell.fill" catalog="system" width="123" height="128"/>
         <image name="heart.fill" catalog="system" width="128" height="107"/>
         <image name="house.fill" catalog="system" width="128" height="104"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
