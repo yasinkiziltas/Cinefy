@@ -17,7 +17,7 @@ class HomeVC: UIViewController, HSCycleGalleryViewDelegate, UICollectionViewDele
     var movies: [Movie] = []
     var populerMovies: [Movie] = []
     
-    let pager = HSCycleGalleryView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 200))
+    let pager = HSCycleGalleryView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 300))
 
     override func viewDidLoad() {
         super.viewDidLoad()

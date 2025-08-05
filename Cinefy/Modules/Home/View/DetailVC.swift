@@ -25,7 +25,6 @@ class DetailVC: UIViewController {
         movieImg.contentMode = .scaleAspectFit
         movieImg.clipsToBounds = true
         movieImg.layer.contentsRect = CGRect(x: 0, y: 0.1, width: 1, height: 0.9)
-
         
         let genreMap: [Int: String] = [
               28: "Aksiyon",
@@ -51,8 +50,8 @@ class DetailVC: UIViewController {
         if let movie = selectedMovie {
             let fullTitle = movie.title
             let shortTitle = fullTitle.count > 30 ? String(fullTitle.prefix(20)) + "..." : fullTitle
-            txtTitle.text = shortTitle
             
+            txtTitle.text = shortTitle
             txtView.text = movie.overview
             
             UIHelper.setButtonTitle(txtAge, title: movie.adult == true ? "18+" : "16+")
