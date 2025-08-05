@@ -34,4 +34,14 @@ class UIHelper {
         controller.navigationController?.navigationBar.tintColor = .white
         controller.navigationController?.navigationBar.titleTextAttributes
     }
+    
+    static func setButtonTitle(_ button: UIButton, title: String, fontSize: CGFloat = 12.0, fontName: String = "Helvetica Neue") {
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont(name: fontName, size: fontSize) ?? UIFont.systemFont(ofSize: fontSize),
+            .foregroundColor: UIColor.white // veya istediğin renk
+        ]
+        let attributedTitle = NSAttributedString(string: title, attributes: attributes)
+        button.setAttributedTitle(attributedTitle, for: .normal)
+    }
+
 }

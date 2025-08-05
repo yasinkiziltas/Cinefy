@@ -73,6 +73,37 @@ class MovieService {
         }.resume()
     }
     
+    //Popüler film detay
+    func fetchMovieDetail(movieId: Int, completion: @escaping (Result<Movie, Error>) -> Void) {
+        let apiKey = "467c8591acfe223ce74b01442fde7853"
+        let urlString = "https://api.themoviedb.org/3/movie/\(movieId)?api_key=\(apiKey)&language=en-US"
+
+        guard let url = URL(string: urlString) else {
+            completion(.failure(NSError(domain: "Yanlış URL", code: 400)))
+            return
+        }
+
+        URLSession.shared.dataTask(with: url) { data, _, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+
+            guard let data = data else {
+                completion(.failure(NSError(domain: "Detay verisi yok", code: 400)))
+                return
+            }
+
+            do {
+                let decodedResponse = try JSONDecoder().decode(Movie.self, from: data)
+                completion(.success(decodedResponse))
+            } catch {
+                completion(.failure(error))
+            }
+        }.resume()
+    }
+
+    
     //Kategoriye göre film
     func fetchMoviesByGenre(genreId: Int, completion: @escaping (Result<[Movie], Error>) -> Void) {
         let apiKey = "467c8591acfe223ce74b01442fde7853"

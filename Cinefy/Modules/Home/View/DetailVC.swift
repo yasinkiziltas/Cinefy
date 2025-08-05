@@ -15,16 +15,17 @@ class DetailVC: UIViewController {
     @IBOutlet weak var txtTitle: UILabel!
     @IBOutlet weak var txtGenre: UILabel!
     @IBOutlet weak var txtView: UITextView!
+    @IBOutlet weak var txtAge: UIButton!
+    @IBOutlet weak var txtYear: UIButton!
+    @IBOutlet weak var txtStar: UIButton!
+    @IBOutlet weak var txtTime: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         movieImg.contentMode = .scaleAspectFit
         movieImg.clipsToBounds = true
         movieImg.layer.contentsRect = CGRect(x: 0, y: 0.1, width: 1, height: 0.9)
-        
-        txtTitle.adjustsFontSizeToFitWidth = true
-        txtTitle.minimumScaleFactor = 0.7
+
         
         let genreMap: [Int: String] = [
               28: "Aksiyon",
@@ -48,8 +49,37 @@ class DetailVC: UIViewController {
         }
         
         if let movie = selectedMovie {
-            txtTitle.text = movie.title
+            let fullTitle = movie.title
+            let shortTitle = fullTitle.count > 30 ? String(fullTitle.prefix(20)) + "..." : fullTitle
+            txtTitle.text = shortTitle
+            
             txtView.text = movie.overview
+            
+            UIHelper.setButtonTitle(txtAge, title: movie.adult == true ? "18+" : "16+")
+            UIHelper.setButtonTitle(txtYear, title: movie.releaseDate?.split(separator: "-").first.map { String($0) } ?? "")
+            UIHelper.setButtonTitle(txtStar, title: "⭐ \(String(format: "%.1f", movie.voteAverage ?? 0.0))")
+            UIHelper.setButtonTitle(txtTime, title: "🕒 Bilinmiyor")
+            
+            MovieService.shared.fetchMovieDetail(movieId: selectedMovie?.id ?? 0) { result in
+                DispatchQueue.main.async {
+                        switch result {
+                        case .success(let detailMovie):
+                            if let runtime = detailMovie.runtime {
+                                let hours = runtime / 60
+                                let minutes = runtime % 60
+                                let runtimeText = hours > 0 ? "\(hours)s \(minutes)dk" : "\(minutes)dk"
+                                UIHelper.setButtonTitle(self.txtTime, title: "🕒 \(runtimeText)")
+                            }
+                        case .failure(let error):
+                            print("Hata: \(error.localizedDescription)")
+                        }
+                    }
+            }
+            
+            let buttons = [txtAge, txtYear, txtStar, txtTime]
+                buttons.forEach {
+                    $0?.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+                }
             
             let imageUrlString = "https://image.tmdb.org/t/p/w500\(movie.posterPath)"
             if let url = URL(string: imageUrlString) {
