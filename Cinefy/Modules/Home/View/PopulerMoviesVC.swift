@@ -114,3 +114,7 @@ class PopulerMoviesVC: UIViewController, UICollectionViewDelegate, UICollectionV
     }
 
 }
+
+#Preview {
+    PopulerMoviesVC()
+}

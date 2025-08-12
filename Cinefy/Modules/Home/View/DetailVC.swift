@@ -22,9 +22,13 @@ class DetailVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         movieImg.contentMode = .scaleAspectFit
         movieImg.clipsToBounds = true
         movieImg.layer.contentsRect = CGRect(x: 0, y: 0.1, width: 1, height: 0.9)
+        
+        //Navbar ayarı
+        UIHelper.navBarColorFunc(on: self)
         
         let genreMap: [Int: String] = [
               28: "Aksiyon",

@@ -23,16 +23,19 @@ class UIHelper {
         controller.edgesForExtendedLayout = [.top, .bottom]
     }
     
-    //Navbar rengi
-    static func navBarFunc(on controller: UIViewController) {
-        //let darkBackground = UIColor(red: 8/255, green: 14/255, blue: 36/255, alpha: 1.0)
-        //controller.navigationController?.navigationBar.barTintColor = darkBackground
-        //controller.navigationController?.navigationBar.isTranslucent = false
-        //controller.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
-        
-        controller.navigationController?.navigationBar.barTintColor = UIColor(red: 8/255, green: 14/255, blue: 36/255, alpha: 1.0)
-        controller.navigationController?.navigationBar.tintColor = .white
-        controller.navigationController?.navigationBar.titleTextAttributes
+    static func navBarColorFunc(on controller: UIViewController) {
+        let darkColor = UIColor(red: 8/255, green: 14/255, blue: 36/255, alpha: 1)
+         controller.view.backgroundColor = darkColor
+
+           // iOS 15+ navigation bar appearance
+           let appearance = UINavigationBarAppearance()
+           appearance.configureWithOpaqueBackground()
+           appearance.backgroundColor = darkColor
+           appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+
+        controller.navigationController?.navigationBar.standardAppearance = appearance
+        controller.navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        controller.navigationController?.navigationBar.tintColor = .white // back ok/üç çizgi rengi vs.
     }
     
     static func setButtonTitle(_ button: UIButton, title: String, fontSize: CGFloat = 12.0, fontName: String = "Helvetica Neue") {

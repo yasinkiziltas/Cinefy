@@ -27,7 +27,7 @@ class HomeVC: UIViewController, HSCycleGalleryViewDelegate, UICollectionViewDele
         UIHelper.backgroundColorFunc(on: self)
 
         // Navbar ayarları
-        UIHelper.navBarFunc(on: self)
+        UIHelper.navBarColorFunc(on: self)
 
         // CollectionView arka plan
         let darkBackground = UIColor(red: 8/255, green: 14/255, blue: 36/255, alpha: 1.0)
