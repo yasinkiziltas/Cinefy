@@ -180,10 +180,6 @@ extension MovieCategoryVC: UITableViewDataSource, UITableViewDelegate, UISearchB
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
-    
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        searchBar.showsCancelButton = true
-    }
 }
 
  

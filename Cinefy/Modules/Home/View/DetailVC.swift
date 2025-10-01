@@ -97,4 +97,9 @@ class DetailVC: UIViewController {
         }
 
     }
+    
+    @IBAction func addFavorite(_ sender: Any) {
+        guard let movie = selectedMovie else { return }
+        CoreDataManager.shared.addFavorite(movie: movie, from: self)
+    }
 }

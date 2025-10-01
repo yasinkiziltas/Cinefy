@@ -48,8 +48,31 @@
                     <view key="view" contentMode="scaleToFill" id="2Dr-WL-UiV">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="CKX-7q-soN">
+                                <rect key="frame" x="0.0" y="118" width="393" height="617"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="sectionIndexBackgroundColor" red="0.031372549019607843" green="0.054901960784313725" blue="0.14117647058823529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FavoriteCell" id="w6H-Vv-eGD">
+                                        <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="w6H-Vv-eGD" id="KtL-GM-af2">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="XfV-DK-Vbt"/>
                         <color key="backgroundColor" red="0.031372549019607843" green="0.054901960784313725" blue="0.14117647058823529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="CKX-7q-soN" firstAttribute="top" secondItem="XfV-DK-Vbt" secondAttribute="top" id="TLu-HF-BSe"/>
+                            <constraint firstItem="XfV-DK-Vbt" firstAttribute="bottom" secondItem="CKX-7q-soN" secondAttribute="bottom" id="Uow-Jo-y7i"/>
+                            <constraint firstItem="CKX-7q-soN" firstAttribute="leading" secondItem="XfV-DK-Vbt" secondAttribute="leading" id="itE-dP-jg7"/>
+                            <constraint firstItem="XfV-DK-Vbt" firstAttribute="trailing" secondItem="CKX-7q-soN" secondAttribute="trailing" id="wjT-mB-EYi"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" id="puc-Xk-BLI">
                         <imageReference key="image" image="heart.fill" catalog="system" renderingMode="hierarchical">
@@ -60,15 +83,18 @@
                             </hierarchicalColors>
                         </imageReference>
                     </tabBarItem>
+                    <connections>
+                        <outlet property="tableView" destination="CKX-7q-soN" id="EuQ-hh-O6G"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aqa-AI-xXk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3100" y="256"/>
         </scene>
-        <!--View Controller-->
+        <!--ProfileVC-->
         <scene sceneID="63C-XD-CYo">
             <objects>
-                <viewController id="J4S-O2-pLV" sceneMemberID="viewController">
+                <viewController id="J4S-O2-pLV" customClass="ProfileVC" customModule="Cinefy" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lJp-6o-AcB">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -431,6 +457,9 @@
                                     <fontDescription key="titleFontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="19"/>
                                     <color key="baseBackgroundColor" red="0.44313725490196076" green="0.29803921568627451" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="addFavorite:" destination="hN0-yY-1ff" eventType="touchUpInside" id="fm0-Sb-2Ss"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lHg-DW-Iqe">
                                 <rect key="frame" x="166" y="573.33333333333337" width="61" height="35"/>
