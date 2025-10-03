@@ -7,9 +7,52 @@
 
 import UIKit
 
-class NotifyVC: UIViewController {
+class NotifyVC: UIViewController, UITableViewDataSource, UITableViewDelegate{
 
+    @IBOutlet weak var tableView: UITableView!
+    var moviesFavoritesLogs: [MoviesLogs] = []
+    let darkColor = UIColor(red: 8/255, green: 14/255, blue: 36/255, alpha: 1)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.backgroundColor = darkColor
+        view.backgroundColor = darkColor
+        fetchLogs()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchLogs()
+    }
+    
+    func fetchLogs() {
+        moviesFavoritesLogs = CoreDataManager.shared.getFavoriteMovieLogs()
+        tableView.reloadData()
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return moviesFavoritesLogs.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "logsCell", for: indexPath) as! LogsTableCell
+        let movieLog = moviesFavoritesLogs[indexPath.row]
+        
+        cell.logTitle.text = movieLog.movieName
+        cell.selectionStyle = .none
+        cell.backgroundColor = darkColor
+        cell.logTitle.textColor = .white
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 85
+    }
+    
+    @IBAction func btnDeleteLogs(_ sender: Any) {
+        CoreDataManager.shared.deleteAllFavoriteMovieLogs(from: self)
+        fetchLogs()
     }
 }

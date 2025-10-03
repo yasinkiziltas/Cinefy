@@ -45,13 +45,10 @@ class CoreDataManager {
         newFavorite.setValue(movie.runtime, forKey: "runtime")
         newFavorite.setValue(movie.voteAverage, forKey: "voteAverage")
         newFavorite.setValue(movie.adult, forKey: "adult")
-        if let genreData = try? JSONEncoder().encode(movie.genreIDs),
-           let genreString = String(data: genreData, encoding: .utf8) {
-            newFavorite.setValue(genreString, forKey: "genreIDs")
-        }
 
         do {
             try context.save()
+            CoreDataManager.shared.logFavoriteMovie(movieName: movie.title, isDeletion: false)
             UIHelper.makeAlert(on: viewController, title: "Başarılı!", message: "Favorilere eklendi.")
         } catch {
             UIHelper.makeAlert(on: viewController, title: "Hata!", message: "Hata: \(error.localizedDescription)")
@@ -74,14 +71,63 @@ class CoreDataManager {
     
     //Favori silme
     func deleteFavorite(movie: FavMovies, from viewController: UIViewController) {
+        let movieTitle = movie.title ?? ""
         context.delete(movie)
         
         do {
             try context.save()
+            CoreDataManager.shared.logFavoriteMovie(movieName: movieTitle, isDeletion: true)
+            //CoreDataManager.shared.logFavoriteMovie(movieName: "\(movie.title)", isDeletion: true)
             UIHelper.makeAlert(on: viewController, title: "Başarılı!", message: "Silme işlemi başarılı!")
         }
         catch {
             UIHelper.makeAlert(on: viewController, title: "Hata!", message: "Silme işlemi sırasında hata: \(error.localizedDescription)")
+        }
+    }
+    
+    //Movie Log Ekleme
+    func logFavoriteMovie(movieName: String, isDeletion: Bool = false) {
+        guard let entity = NSEntityDescription.entity(forEntityName: "MoviesLogs", in: context) else { return }
+        
+        let log = NSManagedObject(entity: entity, insertInto: context)
+        log.setValue(UUID(), forKey: "id")
+        let logText = isDeletion ? "\"\(movieName)\" favorilerden kaldırıldı." : "\"\(movieName)\" favorilere eklendi."
+        log.setValue(logText, forKey: "movieName")
+        log.setValue(Date(), forKey: "createDate")
+        //log.setValue(isDeletion ? "Kaldırıldı" : "Eklendi", forKey: "actionType") // <-- Burası eklendi
+
+        do {
+            try context.save()
+            print("Log eklendi")
+        }
+        catch {
+            print("Log eklenemedi: \(error.localizedDescription)")
+        }
+    }
+    
+    //Movie Log Listeleme
+    func getFavoriteMovieLogs() -> [MoviesLogs] {
+        let request: NSFetchRequest<MoviesLogs> = MoviesLogs.fetchRequest()
+        do {
+            return try context.fetch(request)
+        }
+        catch {
+            print("Loglar listelenemedi: \(error.localizedDescription)")
+            return []
+        }
+    }
+    
+    //Movie Log Silme
+    func deleteAllFavoriteMovieLogs(from viewController: UIViewController) {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "MoviesLogs")
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        
+        do {
+            try context.execute(batchDeleteRequest)
+            try context.save()
+            UIHelper.makeAlert(on: viewController, title: "Başarılı!", message: "Tüm loglar silindi.")
+        } catch {
+            UIHelper.makeAlert(on: viewController, title: "Hata", message: "Logları silerken bir hata oluştu.")
         }
     }
 }
