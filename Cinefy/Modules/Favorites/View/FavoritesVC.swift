@@ -8,7 +8,7 @@
 import UIKit
 import Lottie
 
-class FavoritesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class FavoritesVC: UIViewController, UITableViewDelegate, UITableViewDataSource, FavoritesTableCellDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     var favorites: [FavMovies] = []
@@ -38,12 +38,69 @@ class FavoritesVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "FavoriteCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FavoriteCell", for: indexPath) as! FavoritesTableCell
         let movie = favorites[indexPath.row]
-        cell.textLabel?.text = movie.title
+       
+        if let posterPath = movie.posterPath {
+            let fullPath = "https://image.tmdb.org/t/p/w500" + posterPath
+            if let url = URL(string: fullPath) {
+                URLSession.shared.dataTask(with: url) { data, _, error in
+                    if let data = data, let image = UIImage(data: data) {
+                        DispatchQueue.main.async {
+                            cell.movieImageView.image = image
+                        }
+                    }
+                }.resume()
+            }
+        } else {
+            cell.movieImageView.image = UIImage(named: "placeholder")
+        }
+        
+        cell.movieTitleLabel.text = movie.title
+        cell.movieTitleLabel.textColor = .white
+        cell.selectionStyle = .none
         cell.backgroundColor = darkColor
-        cell.textLabel?.textColor = .white
+        cell.delegate = self
         return cell
     }
-}
+    
+    func didTapDeleteButton(cell: FavoritesTableCell) {
+        if let indexPath = tableView.indexPath(for: cell) {
+            let movieToDelete = favorites[indexPath.row]
+            CoreDataManager.shared.deleteFavorite(movie: movieToDelete, from: self)
+            favorites.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toDetailVCFromFavorites" {
+            if let destinationVC = segue.destination as? DetailVC,
+               let movie = sender as? Movie {
+                destinationVC.selectedMovie = movie
+                destinationVC.isFromFavorites = true
+            }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedMovie = self.favorites[indexPath.row]
 
+        let movie = Movie(
+            id: 0,
+            title: selectedMovie.title ?? "",
+            overview: selectedMovie.overview ?? "",
+            posterPath: selectedMovie.posterPath ?? "",
+            releaseDate: selectedMovie.releaseDate ?? "",
+            runtime: Int(selectedMovie.runtime ?? 0),
+            voteAverage: selectedMovie.voteAverage ?? 0,
+            genreIDs: [],
+            adult: selectedMovie.adult ?? false
+        )
+        performSegue(withIdentifier: "toDetailVCFromFavorites", sender: movie)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 150
+    }
+}

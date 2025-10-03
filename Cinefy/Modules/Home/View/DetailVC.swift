@@ -10,6 +10,7 @@ import UIKit
 class DetailVC: UIViewController {
 
     var selectedMovie: Movie?
+    var isFromFavorites: Bool = false
     
     @IBOutlet weak var movieImg: UIImageView!
     @IBOutlet weak var txtTitle: UILabel!
@@ -19,9 +20,14 @@ class DetailVC: UIViewController {
     @IBOutlet weak var txtYear: UIButton!
     @IBOutlet weak var txtStar: UIButton!
     @IBOutlet weak var txtTime: UIButton!
+    @IBOutlet weak var btnFav: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if isFromFavorites {
+            btnFav.isHidden = true
+        }
         
         movieImg.contentMode = .scaleAspectFit
         movieImg.clipsToBounds = true
