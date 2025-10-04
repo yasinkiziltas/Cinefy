@@ -77,7 +77,6 @@ class CoreDataManager {
         do {
             try context.save()
             CoreDataManager.shared.logFavoriteMovie(movieName: movieTitle, isDeletion: true)
-            //CoreDataManager.shared.logFavoriteMovie(movieName: "\(movie.title)", isDeletion: true)
             UIHelper.makeAlert(on: viewController, title: "Başarılı!", message: "Silme işlemi başarılı!")
         }
         catch {
@@ -91,10 +90,13 @@ class CoreDataManager {
         
         let log = NSManagedObject(entity: entity, insertInto: context)
         log.setValue(UUID(), forKey: "id")
-        let logText = isDeletion ? "\"\(movieName)\" favorilerden kaldırıldı." : "\"\(movieName)\" favorilere eklendi."
-        log.setValue(logText, forKey: "movieName")
         log.setValue(Date(), forKey: "createDate")
-        //log.setValue(isDeletion ? "Kaldırıldı" : "Eklendi", forKey: "actionType") // <-- Burası eklendi
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.yyyy HH:mm"
+        let dateString = formatter.string(from: Date())
+        let logText = isDeletion ? "\"\(movieName)\" favorilerden \(dateString) tarihinde kaldırıldı." : "\"\(movieName)\" \(dateString) tarihinde favorilere eklendi."
+        log.setValue(logText, forKey: "movieName")
 
         do {
             try context.save()

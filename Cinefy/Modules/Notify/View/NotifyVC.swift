@@ -39,7 +39,6 @@ class NotifyVC: UIViewController, UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "logsCell", for: indexPath) as! LogsTableCell
         let movieLog = moviesFavoritesLogs[indexPath.row]
-        
         cell.logTitle.text = movieLog.movieName
         cell.selectionStyle = .none
         cell.backgroundColor = darkColor
