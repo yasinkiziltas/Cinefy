@@ -20,12 +20,33 @@ class FavoritesVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         tableView.dataSource = self
         tableView.backgroundColor = darkColor
         view.backgroundColor = darkColor
+        
+        let emptyLabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+        emptyLabel.text = "Henüz favori yok.."
+        emptyLabel.textAlignment = .center
+        emptyLabel.textColor = .gray
+        emptyLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        
+        tableView.backgroundView = emptyLabel
+        tableView.backgroundView?.isHidden = true
+        
         fetchMovies()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchMovies()
+        updateEmptyState()
+    }
+    
+    func updateEmptyState() {
+        if favorites.isEmpty {
+            tableView.backgroundView?.isHidden = false
+            tableView.separatorStyle = .none
+        } else {
+            tableView.backgroundView?.isHidden = true
+            tableView.separatorStyle = .singleLine
+        }
     }
     
     func fetchMovies() {

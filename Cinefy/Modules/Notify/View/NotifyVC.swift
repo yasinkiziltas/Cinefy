@@ -51,7 +51,11 @@ class NotifyVC: UIViewController, UITableViewDataSource, UITableViewDelegate{
     }
     
     @IBAction func btnDeleteLogs(_ sender: Any) {
-        CoreDataManager.shared.deleteAllFavoriteMovieLogs(from: self)
-        fetchLogs()
+        if moviesFavoritesLogs.count > 0 {
+            CoreDataManager.shared.deleteAllFavoriteMovieLogs(from: self)
+            fetchLogs()
+        } else {
+            UIHelper.makeAlert(on: self, title: "Uyarı!", message: "Bildirim bulunmamaktadır..")
+        }
     }
 }

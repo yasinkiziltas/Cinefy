@@ -100,7 +100,6 @@ class CoreDataManager {
 
         do {
             try context.save()
-            print("Log eklendi")
         }
         catch {
             print("Log eklenemedi: \(error.localizedDescription)")
@@ -127,7 +126,6 @@ class CoreDataManager {
         do {
             try context.execute(batchDeleteRequest)
             try context.save()
-            UIHelper.makeAlert(on: viewController, title: "Başarılı!", message: "Tüm loglar silindi.")
         } catch {
             UIHelper.makeAlert(on: viewController, title: "Hata", message: "Logları silerken bir hata oluştu.")
         }
