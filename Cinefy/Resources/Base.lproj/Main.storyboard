@@ -326,6 +326,7 @@
                         <outlet property="pagerContainer" destination="mw3-wk-7u3" id="R8R-IV-5Sj"/>
                         <segue destination="cZT-5D-ch7" kind="show" identifier="goToCategory" id="v8J-3c-tRj"/>
                         <segue destination="QEW-Sw-0Xg" kind="show" identifier="toAllPopularMovies" id="aPd-Ly-jmI"/>
+                        <segue destination="hN0-yY-1ff" kind="show" identifier="toDetailFromHome" id="Eur-jv-WbK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6FP-2f-CuS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -394,7 +395,7 @@
             <objects>
                 <viewController storyboardIdentifier="DetailVC" id="hN0-yY-1ff" customClass="DetailVC" customModule="Cinefy" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7JP-sN-aE2">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="793"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AGO-hQ-NK5">
@@ -438,7 +439,7 @@
                                 </buttonConfiguration>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oCY-As-ube">
-                                <rect key="frame" x="87" y="631.33333333333337" width="57" height="35"/>
+                                <rect key="frame" x="87" y="573.33333333333337" width="57" height="35"/>
                                 <color key="backgroundColor" red="0.14117647059999999" green="0.17254901959999999" blue="0.30980392159999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Button"/>
@@ -447,7 +448,7 @@
                                 </buttonConfiguration>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PJa-0K-ZCV">
-                                <rect key="frame" x="252" y="631.33333333333337" width="118" height="35"/>
+                                <rect key="frame" x="252" y="573.33333333333337" width="118" height="35"/>
                                 <color key="backgroundColor" red="0.14117647059999999" green="0.17254901959999999" blue="0.30980392159999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Button"/>
@@ -456,7 +457,7 @@
                                 </buttonConfiguration>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rqc-KR-pXc">
-                                <rect key="frame" x="23" y="721" width="340.66666666666669" height="51"/>
+                                <rect key="frame" x="23" y="663" width="340.66666666666669" height="51"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="51" id="I5Q-Ad-ok8"/>
                                 </constraints>
@@ -471,7 +472,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lHg-DW-Iqe">
-                                <rect key="frame" x="166" y="631.33333333333337" width="61" height="35"/>
+                                <rect key="frame" x="166" y="573.33333333333337" width="61" height="35"/>
                                 <color key="backgroundColor" red="0.14117647059999999" green="0.17254901959999999" blue="0.30980392159999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="61" id="sZe-om-pfs"/>
@@ -783,7 +784,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="20L-1n-ZDH"/>
+        <segue reference="Eur-jv-WbK"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="bell.fill" catalog="system" width="123" height="128"/>

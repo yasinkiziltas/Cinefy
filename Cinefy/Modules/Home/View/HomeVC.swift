@@ -103,6 +103,11 @@ class HomeVC: UIViewController, HSCycleGalleryViewDelegate, UICollectionViewDele
            let destination = segue.destination as? MovieCategoryVC,
            let genreId = sender as? Int {
             destination.selectedGenreId = genreId
+            
+        } else if segue.identifier == "toDetailFromHome",
+                  let destinationPopuler = segue.destination as? DetailVC,
+                  let movie = sender as? Movie  {
+                  destinationPopuler.selectedMovie = movie
         }
     }
     
@@ -130,6 +135,11 @@ class HomeVC: UIViewController, HSCycleGalleryViewDelegate, UICollectionViewDele
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PopularMoviesCard", for: indexPath) as! PopularMoviesCard
               cell.configure(with: populerMovies[indexPath.row])
               return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedMovie = populerMovies[indexPath.row]
+        performSegue(withIdentifier: "toDetailFromHome", sender: selectedMovie)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
