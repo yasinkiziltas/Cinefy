@@ -9,4 +9,5 @@ import UIKit
 
 class LogsTableCell: UITableViewCell {
     @IBOutlet weak var logTitle: UILabel!
+    @IBOutlet weak var logImg: UIImageView!
 }

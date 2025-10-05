@@ -15,6 +15,7 @@ class NotifyVC: UIViewController, UITableViewDataSource, UITableViewDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = darkColor
@@ -43,6 +44,15 @@ class NotifyVC: UIViewController, UITableViewDataSource, UITableViewDelegate{
         cell.selectionStyle = .none
         cell.backgroundColor = darkColor
         cell.logTitle.textColor = .white
+        
+        if movieLog.isDeletion {
+            cell.logImg.image = UIImage(systemName: "minus")
+            cell.logImg.tintColor = .red
+        } else {
+            cell.logImg.image = UIImage(systemName: "plus")
+            cell.logImg.tintColor = .green
+        }
+        
         return cell
     }
     

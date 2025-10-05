@@ -112,7 +112,6 @@ class PopulerMoviesVC: UIViewController, UICollectionViewDelegate, UICollectionV
         let selectedMovie = movies[indexPath.row]
         performSegue(withIdentifier: "ToMovieDetailVC", sender: selectedMovie)
     }
-
 }
 
 #Preview {

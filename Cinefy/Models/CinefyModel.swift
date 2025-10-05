@@ -77,7 +77,6 @@ class CoreDataManager {
         do {
             try context.save()
             CoreDataManager.shared.logFavoriteMovie(movieName: movieTitle, isDeletion: true)
-            UIHelper.makeAlert(on: viewController, title: "Başarılı!", message: "Silme işlemi başarılı!")
         }
         catch {
             UIHelper.makeAlert(on: viewController, title: "Hata!", message: "Silme işlemi sırasında hata: \(error.localizedDescription)")
@@ -91,6 +90,7 @@ class CoreDataManager {
         let log = NSManagedObject(entity: entity, insertInto: context)
         log.setValue(UUID(), forKey: "id")
         log.setValue(Date(), forKey: "createDate")
+        log.setValue(isDeletion, forKey: "isDeletion")
         
         let formatter = DateFormatter()
         formatter.dateFormat = "dd.MM.yyyy HH:mm"
