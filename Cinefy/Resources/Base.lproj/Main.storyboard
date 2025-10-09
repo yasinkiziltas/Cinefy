@@ -74,7 +74,7 @@
                                 <rect key="frame" x="29" y="461" width="334" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hbq-Df-oZR">
                                 <rect key="frame" x="229" y="510" width="144" height="28"/>
@@ -138,6 +138,8 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <connections>
+                        <outlet property="txtEmail" destination="9uy-S5-ZYo" id="NK1-ua-21A"/>
+                        <outlet property="txtPassword" destination="obI-2n-G7f" id="z9G-LD-p0P"/>
                         <segue destination="Vqc-zc-Dck" kind="presentation" identifier="toRegisterFromLogin" modalPresentationStyle="fullScreen" id="It5-Bc-m6I"/>
                         <segue destination="2mr-qH-IQz" kind="presentation" identifier="toHomeFromLogin" modalPresentationStyle="fullScreen" id="dGU-3k-zCs"/>
                     </connections>
@@ -177,6 +179,7 @@
                                     <color key="baseBackgroundColor" red="0.031372549019607843" green="0.054901960784313725" blue="0.14117647058823529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </buttonConfiguration>
                                 <connections>
+                                    <action selector="btnRegister:" destination="Vqc-zc-Dck" eventType="touchUpInside" id="Glf-92-OvT"/>
                                     <segue destination="2mr-qH-IQz" kind="presentation" identifier="toHomeFromRegister" modalPresentationStyle="fullScreen" id="MDV-bB-1cN"/>
                                 </connections>
                             </button>
@@ -229,7 +232,7 @@
                                 <rect key="frame" x="23" y="466" width="346" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Şifre" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rZ0-L3-RLi">
                                 <rect key="frame" x="23" y="437" width="39" height="21"/>
@@ -243,6 +246,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <connections>
+                        <outlet property="txtEmail" destination="HCC-jR-Xss" id="QIf-CD-kO0"/>
+                        <outlet property="txtName" destination="Cax-qv-fpM" id="ogP-NB-oYQ"/>
+                        <outlet property="txtPassword" destination="H67-gl-z4L" id="CzS-sb-Q2b"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="toLoginFromRegister" modalPresentationStyle="fullScreen" id="DJr-6a-WzB"/>
                     </connections>
                 </viewController>
@@ -1014,7 +1020,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="MDV-bB-1cN"/>
+        <segue reference="dGU-3k-zCs"/>
         <segue reference="7r4-rH-Mj4"/>
     </inferredMetricsTieBreakers>
     <resources>

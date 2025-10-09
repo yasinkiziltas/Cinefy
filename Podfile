@@ -7,6 +7,10 @@ target 'Cinefy' do
 
   # Pods for Cinefy
   pod 'HSCycleGalleryView'
+  pod 'FirebaseAnalytics'
+  pod 'FirebaseAuth'
+  pod 'FirebaseFirestore'
+  pod 'FirebaseStorage'
 
   target 'CinefyTests' do
     inherit! :search_paths
