@@ -6,10 +6,20 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class ProfileVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    @IBAction func btnLogout(_ sender: Any) {
+        do {
+            try Auth.auth().signOut()
+            self.performSegue(withIdentifier: "toLoginFromProfile", sender: nil)
+        } catch {
+            print("Hata!")
+        }
     }
 }

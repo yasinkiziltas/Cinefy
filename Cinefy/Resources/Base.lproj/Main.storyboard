@@ -339,6 +339,18 @@
                     <view key="view" contentMode="scaleToFill" id="lJp-6o-AcB">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="87I-ax-i42">
+                                <rect key="frame" x="150" y="363" width="94" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="tinted" title="Çıkış Yap"/>
+                                <connections>
+                                    <action selector="btnLogout:" destination="J4S-O2-pLV" eventType="touchUpInside" id="JW5-eB-lAb"/>
+                                    <segue destination="BYZ-38-t0r" kind="presentation" identifier="toLoginFromProfile" modalPresentationStyle="fullScreen" id="nt5-tG-V9A"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="Geb-mW-hJ3"/>
                         <color key="backgroundColor" red="0.031372549019607843" green="0.054901960784313725" blue="0.14117647058823529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -881,7 +893,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="kco-3k-NHb">
             <objects>
-                <tabBarController id="2mr-qH-IQz" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tabBar" id="2mr-qH-IQz" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="e28-gO-MkK">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1022,6 +1034,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="dGU-3k-zCs"/>
         <segue reference="7r4-rH-Mj4"/>
+        <segue reference="nt5-tG-V9A"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="bell.fill" catalog="system" width="123" height="128"/>
