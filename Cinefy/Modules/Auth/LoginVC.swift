@@ -7,13 +7,45 @@
 
 import UIKit
 import FirebaseAuth
+import Lottie
 
 class LoginVC: UIViewController {
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
+    private var animationView: LottieAnimationView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        txtEmail.delegate = self
+        txtPassword.delegate = self
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dissmissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    func showWaitingAnimation() {
+        // Eski animasyon varsa kaldır
+           animationView?.removeFromSuperview()
+           animationView = LottieAnimationView(name: "waiting")
+           animationView?.translatesAutoresizingMaskIntoConstraints = false
+           animationView?.loopMode = .loop
+           animationView?.contentMode = .scaleAspectFit
+           animationView?.play()
+        
+        view.addSubview(animationView!)
+        
+        //Ortaya yerleştir - Auto Layout
+        NSLayoutConstraint.activate([
+            animationView!.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            animationView!.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            animationView!.widthAnchor.constraint(equalToConstant: 100),
+            animationView!.heightAnchor.constraint(equalToConstant: 100)
+            
+        ])
+    }
+    
+    @objc func dissmissKeyboard() {
+        view.endEditing(true)
     }
     
     @IBAction func btnLogin(_ sender: Any) {
@@ -44,12 +76,26 @@ class LoginVC: UIViewController {
                 }
             }
             else {
-                self.performSegue(withIdentifier: "toHomeFromLogin", sender: nil)
+                self.showWaitingAnimation()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.1) {
+                    self.animationView?.stop()
+                    self.animationView?.removeFromSuperview()
+                    self.performSegue(withIdentifier: "toHomeFromLogin", sender: nil)
+                }
             }
         }
     }
     
     @IBAction func btnRegister(_ sender: Any) {
         performSegue(withIdentifier: "toRegisterFromLogin", sender: nil)
+    }
+}
+
+
+//Klavye kapatır
+extension LoginVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

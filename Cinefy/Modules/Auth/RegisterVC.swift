@@ -7,24 +7,75 @@
 
 import UIKit
 import FirebaseAuth
+import Lottie
 
 class RegisterVC: UIViewController {
 
     @IBOutlet weak var txtName: UITextField!
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
+    private var registerAnimationView: LottieAnimationView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dissmissKeyboard))
+        view.addGestureRecognizer(tap)
+        
+        txtName.delegate = self
+        txtEmail.delegate = self
+        txtPassword.delegate = self
+    }
+    
+    @objc func dissmissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    func showRegisterAnimation() {
+        registerAnimationView?.removeFromSuperview()
+        registerAnimationView = LottieAnimationView(name: "success")
+        registerAnimationView?.translatesAutoresizingMaskIntoConstraints = false
+        registerAnimationView?.loopMode = .loop
+        registerAnimationView?.contentMode = .scaleAspectFit
+        registerAnimationView?.play()
+        
+        view.addSubview(registerAnimationView!)
+        
+        NSLayoutConstraint.activate([
+            registerAnimationView!.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            registerAnimationView!.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            registerAnimationView!.widthAnchor.constraint(equalToConstant: 100),
+            registerAnimationView!.heightAnchor.constraint(equalToConstant: 100)
+        ])
     }
     
     @IBAction func btnRegister(_ sender: Any) {
         if txtName.text != "" && txtEmail.text != "" && txtPassword.text != "" {
             Auth.auth().createUser(withEmail: txtEmail.text!, password: txtPassword.text!) { auth, error in
-                if error != nil {
-                    UIHelper.makeAlert(on: self, title: "Hata!", message: error?.localizedDescription ?? "")
+                if let error = error as NSError? {
+                    if let errorCode = AuthErrorCode(rawValue: error.code) {
+                        var message = ""
+                        
+                        switch errorCode {
+                        case .emailAlreadyInUse:
+                            message = "Bu e-posta adresi zaten kullanımda!"
+                        case .invalidEmail:
+                            message = "Geçersiz e-posta adresi!"
+                        case .weakPassword:
+                            message = "Şifre en az 6 karakter olmalı!"
+                        case .networkError:
+                            message = "Ağ bağlantınız yok!"
+                        default:
+                            message = error.localizedDescription
+                        }
+                        UIHelper.makeAlert(on: self, title: "Hata!", message: message)
+                    }
                 } else {
-                    self.performSegue(withIdentifier: "toHomeFromRegister", sender: nil)
+                    self.showRegisterAnimation()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                        self.registerAnimationView?.stop()
+                        self.registerAnimationView?.removeFromSuperview()
+                        self.performSegue(withIdentifier: "toHomeFromRegister", sender: nil)
+                    }
                 }
             }
         } else {
@@ -34,5 +85,12 @@ class RegisterVC: UIViewController {
     
     @IBAction func btnLogin(_ sender: Any) {
         performSegue(withIdentifier: "toLoginFromRegister", sender: nil)
+    }
+}
+
+extension RegisterVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

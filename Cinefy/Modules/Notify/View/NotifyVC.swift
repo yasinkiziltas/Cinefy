@@ -10,6 +10,7 @@ import UIKit
 class NotifyVC: UIViewController, UITableViewDataSource, UITableViewDelegate{
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var btnDeleteLog: UIButton!
     var moviesFavoritesLogs: [MoviesLogs] = []
     let darkColor = UIColor(red: 8/255, green: 14/255, blue: 36/255, alpha: 1)
     
@@ -26,12 +27,19 @@ class NotifyVC: UIViewController, UITableViewDataSource, UITableViewDelegate{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchLogs()
+        
+        if moviesFavoritesLogs.count > 0 {
+            btnDeleteLog.isHidden = false
+        } else {
+            btnDeleteLog.isHidden = true
+        }
     }
     
     func fetchLogs() {
         moviesFavoritesLogs = CoreDataManager.shared.getFavoriteMovieLogs()
         tableView.reloadData()
     }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return moviesFavoritesLogs.count

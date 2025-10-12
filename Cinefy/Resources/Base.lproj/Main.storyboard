@@ -67,7 +67,7 @@
                                 <rect key="frame" x="29" y="461" width="334" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="go" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hbq-Df-oZR">
                                 <rect key="frame" x="229" y="510" width="144" height="28"/>
@@ -180,7 +180,6 @@
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="btnRegister:" destination="Vqc-zc-Dck" eventType="touchUpInside" id="Glf-92-OvT"/>
-                                    <segue destination="2mr-qH-IQz" kind="presentation" identifier="toHomeFromRegister" modalPresentationStyle="fullScreen" id="MDV-bB-1cN"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hesabınız var mı?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1EB-Vp-BUC">
@@ -206,7 +205,7 @@
                                 <rect key="frame" x="23" y="292" width="346" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="next"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ad Soyad" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z9c-dR-pZU">
                                 <rect key="frame" x="23" y="263" width="77" height="21"/>
@@ -219,7 +218,7 @@
                                 <rect key="frame" x="23" y="379" width="346" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="next"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vWA-M9-aKy">
                                 <rect key="frame" x="23" y="350" width="45" height="21"/>
@@ -232,7 +231,7 @@
                                 <rect key="frame" x="23" y="466" width="346" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="go" secureTextEntry="YES"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Şifre" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rZ0-L3-RLi">
                                 <rect key="frame" x="23" y="437" width="39" height="21"/>
@@ -250,6 +249,7 @@
                         <outlet property="txtName" destination="Cax-qv-fpM" id="ogP-NB-oYQ"/>
                         <outlet property="txtPassword" destination="H67-gl-z4L" id="CzS-sb-Q2b"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="toLoginFromRegister" modalPresentationStyle="fullScreen" id="DJr-6a-WzB"/>
+                        <segue destination="2mr-qH-IQz" kind="presentation" identifier="toHomeFromRegister" modalPresentationStyle="fullScreen" id="OG8-N7-eHf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="moa-SP-hDo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -996,6 +996,7 @@
                         </imageReference>
                     </tabBarItem>
                     <connections>
+                        <outlet property="btnDeleteLog" destination="hM9-V9-i6D" id="oxF-Co-AXT"/>
                         <outlet property="tableView" destination="cPi-40-aD2" id="8Ws-5A-51Q"/>
                     </connections>
                 </viewController>
@@ -1032,9 +1033,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="dGU-3k-zCs"/>
+        <segue reference="OG8-N7-eHf"/>
         <segue reference="7r4-rH-Mj4"/>
-        <segue reference="nt5-tG-V9A"/>
+        <segue reference="DJr-6a-WzB"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="bell.fill" catalog="system" width="123" height="128"/>
