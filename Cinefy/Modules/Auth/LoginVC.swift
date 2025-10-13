@@ -89,6 +89,10 @@ class LoginVC: UIViewController {
     @IBAction func btnRegister(_ sender: Any) {
         performSegue(withIdentifier: "toRegisterFromLogin", sender: nil)
     }
+    
+    @IBAction func btnForgotPassword(_ sender: Any) {
+        performSegue(withIdentifier: "toResetPassword", sender: nil)
+    }
 }
 
 
