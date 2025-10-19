@@ -36,6 +36,10 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    
+
+   
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return menuNames.count
     }
@@ -80,6 +84,6 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 55
+        return 65
     }
 }
