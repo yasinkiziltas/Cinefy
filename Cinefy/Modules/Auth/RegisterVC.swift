@@ -7,6 +7,8 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseCore
+import FirebaseFirestore
 import Lottie
 
 class RegisterVC: UIViewController {
@@ -15,6 +17,8 @@ class RegisterVC: UIViewController {
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
     private var registerAnimationView: LottieAnimationView?
+    
+    let firebaseModel = FirebaseModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +54,7 @@ class RegisterVC: UIViewController {
     
     @IBAction func btnRegister(_ sender: Any) {
         if txtName.text != "" && txtEmail.text != "" && txtPassword.text != "" {
-            Auth.auth().createUser(withEmail: txtEmail.text!, password: txtPassword.text!) { auth, error in
+            Auth.auth().createUser(withEmail: txtEmail.text!, password: txtPassword.text!) { authResult, error in
                 if let error = error as NSError? {
                     if let errorCode = AuthErrorCode(rawValue: error.code) {
                         var message = ""
@@ -69,7 +73,20 @@ class RegisterVC: UIViewController {
                         }
                         UIHelper.makeAlert(on: self, title: "Hata!", message: message)
                     }
-                } else {
+                } else if let user = authResult?.user {
+                    
+                    self.firebaseModel.addUserData(
+                        userId: user.uid,
+                        name: self.txtName.text!,
+                        email: self.txtEmail.text!) { error in
+                            
+                        if let error = error {
+                            print("Firestore kayıt hatası: \(error.localizedDescription)")
+                        } else {
+                            print("Kullanıcı Firestore'a kaydedildi.")
+                        }
+                    }
+                    
                     self.showRegisterAnimation()
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
                         self.registerAnimationView?.stop()

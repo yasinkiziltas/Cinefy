@@ -6,9 +6,46 @@
 //
 
 import Foundation
+import FirebaseAuth
+import FirebaseFirestore
 import UIKit
 
 class UIHelper {
+    
+    static var currentUserName: String = ""
+    static var currentName: String = ""
+    static var currentUserEmail: String = ""
+    
+    //Kullanıcı bilgilerini çekme
+    static func fetchUserInfo(completion: @escaping () -> Void) {
+        guard let currentUser = Auth.auth().currentUser else {
+            print("Kullanıcı giriş yapmadı.")
+            return
+        }
+        
+        self.currentUserEmail = currentUser.email ?? "Email yok"
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(currentUser.uid)
+        
+        userRef.getDocument { (document, error) in
+            if let error = error {
+                print("Kullanıcı verisi bulunamadı\(error.localizedDescription)")
+                return
+            }
+            
+            if let document = document, document.exists {
+                let data = document.data()
+                self.currentName = data?["name"] as? String ?? "Ad yok"
+                self.currentUserName = data?["username"] as? String ?? "Kullanıcı Adı yok"
+                completion()
+            }
+            else {
+                print("Sistemde kullanıcı yok")
+            }
+        }
+    }
+    
+    //Alert
     static func makeAlert(on controller: UIViewController, title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Tamam", style: .default, handler: nil))

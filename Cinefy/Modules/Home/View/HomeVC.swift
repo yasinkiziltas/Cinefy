@@ -8,20 +8,27 @@
 import UIKit
 import Lottie
 import HSCycleGalleryView
+import FirebaseAuth
+import FirebaseFirestore
+
 
 class HomeVC: UIViewController, HSCycleGalleryViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     @IBOutlet weak var pagerContainer: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var txtName: UILabel!
     
     var movies: [Movie] = []
     var populerMovies: [Movie] = []
     
     let pager = HSCycleGalleryView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 300))
+    let firebaseModel = FirebaseModel()
+   
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.backButtonTitle = "Geri"
+        guard let userId = Auth.auth().currentUser?.uid else { return }
         
         // Arka plan ayarları
         UIHelper.backgroundColorFunc(on: self)
@@ -69,6 +76,14 @@ class HomeVC: UIViewController, HSCycleGalleryViewDelegate, UICollectionViewDele
                 }
             case .failure(let error):
                 print("Hata: \(error)")
+            }
+        }
+        
+        firebaseModel.getUserName(userId: userId) { name ,error in
+            if let error = error {
+                print("Ad alınamadı: \(error.localizedDescription)")
+            } else if let name = name {
+                self.txtName.text = name
             }
         }
     }

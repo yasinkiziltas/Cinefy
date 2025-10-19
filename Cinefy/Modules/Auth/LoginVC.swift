@@ -24,7 +24,6 @@ class LoginVC: UIViewController {
     }
     
     func showWaitingAnimation() {
-        // Eski animasyon varsa kaldır
            animationView?.removeFromSuperview()
            animationView = LottieAnimationView(name: "waiting")
            animationView?.translatesAutoresizingMaskIntoConstraints = false
@@ -95,8 +94,6 @@ class LoginVC: UIViewController {
     }
 }
 
-
-//Klavye kapatır
 extension LoginVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()

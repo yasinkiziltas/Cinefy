@@ -22,22 +22,44 @@ class NotifyVC: UIViewController, UITableViewDataSource, UITableViewDelegate{
         tableView.backgroundColor = darkColor
         view.backgroundColor = darkColor
         fetchLogs()
+        
+        let emptyLabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+        emptyLabel.text = "Henüz bildirim yok.."
+        emptyLabel.textAlignment = .center
+        emptyLabel.textColor = .gray
+        emptyLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        
+        tableView.backgroundView = emptyLabel
+        tableView.backgroundView?.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchLogs()
+        updateEmptyState()
         
         if moviesFavoritesLogs.count > 0 {
             btnDeleteLog.isHidden = false
         } else {
             btnDeleteLog.isHidden = true
         }
+        
+
     }
     
     func fetchLogs() {
         moviesFavoritesLogs = CoreDataManager.shared.getFavoriteMovieLogs()
         tableView.reloadData()
+    }
+    
+    func updateEmptyState() {
+        if moviesFavoritesLogs.count > 0 {
+            tableView.backgroundView?.isHidden = true
+            tableView.separatorStyle = .none
+        } else {
+            tableView.backgroundView?.isHidden = false
+            tableView.separatorStyle = .singleLine
+        }
     }
     
     
