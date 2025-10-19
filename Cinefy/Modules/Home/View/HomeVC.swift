@@ -28,7 +28,7 @@ class HomeVC: UIViewController, HSCycleGalleryViewDelegate, UICollectionViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.backButtonTitle = "Geri"
-        guard let userId = Auth.auth().currentUser?.uid else { return }
+       
         
         // Arka plan ayarları
         UIHelper.backgroundColorFunc(on: self)
@@ -78,7 +78,10 @@ class HomeVC: UIViewController, HSCycleGalleryViewDelegate, UICollectionViewDele
                 print("Hata: \(error)")
             }
         }
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        guard let userId = Auth.auth().currentUser?.uid else { return }
         firebaseModel.getUserName(userId: userId) { name ,error in
             if let error = error {
                 print("Ad alınamadı: \(error.localizedDescription)")

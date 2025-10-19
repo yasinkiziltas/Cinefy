@@ -27,7 +27,10 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         tableView.separatorColor = UIColor.lightGray
         tableView.backgroundColor = UIColor.clear
         tableView.register(ProfileMenuTableViewCell.nib(), forCellReuseIdentifier: ProfileMenuTableViewCell.identifier)
-        
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
         UIHelper.fetchUserInfo {
             DispatchQueue.main.async {
                 self.txtName.text = UIHelper.currentName
@@ -35,9 +38,6 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }
         }
     }
-    
-    
-
    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
