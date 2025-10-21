@@ -6,11 +6,15 @@
 //
 
 import UIKit
+import FirebaseCore
+import FirebaseAuth
 
 class DetailVC: UIViewController {
 
     var selectedMovie: Movie?
     var isFromFavorites: Bool = false
+    let firebaseModel = FirebaseModel()
+    let userId = Auth.auth().currentUser?.uid
     
     @IBOutlet weak var movieImg: UIImageView!
     @IBOutlet weak var txtTitle: UILabel!
@@ -106,6 +110,7 @@ class DetailVC: UIViewController {
     
     @IBAction func addFavorite(_ sender: Any) {
         guard let movie = selectedMovie else { return }
-        CoreDataManager.shared.addFavorite(movie: movie, from: self)
+        firebaseModel.addFavorites(userId: userId ?? "", movie: movie, from: self, completion: nil)
+        //CoreDataManager.shared.addFavorite(movie: movie, from: self)
     }
 }

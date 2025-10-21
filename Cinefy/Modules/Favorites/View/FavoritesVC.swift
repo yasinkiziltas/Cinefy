@@ -7,11 +7,15 @@
 
 import UIKit
 import Lottie
+import FirebaseCore
+import FirebaseAuth
+
 
 class FavoritesVC: UIViewController, UITableViewDelegate, UITableViewDataSource, FavoritesTableCellDelegate {
 
     @IBOutlet weak var tableView: UITableView!
-    var favorites: [FavMovies] = []
+    let firebaseModel = FirebaseModel()
+    var favorites = [Movie]()
     let darkColor = UIColor(red: 8/255, green: 14/255, blue: 36/255, alpha: 1)
     
     override func viewDidLoad() {
@@ -50,8 +54,17 @@ class FavoritesVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
     }
     
     func fetchMovies() {
-        favorites = CoreDataManager.shared.fetchFavorites()
-        tableView.reloadData()
+        guard let userId = Auth.auth().currentUser?.uid else { return }
+        firebaseModel.getFavorites(for: userId) {[weak self] movies in
+            self?.favorites = movies
+            
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+                self?.updateEmptyState()
+            }
+        }
+       
+        //favorites = CoreDataManager.shared.fetchFavorites()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -62,17 +75,15 @@ class FavoritesVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         let cell = tableView.dequeueReusableCell(withIdentifier: "FavoriteCell", for: indexPath) as! FavoritesTableCell
         let movie = favorites[indexPath.row]
        
-        if let posterPath = movie.posterPath {
-            let fullPath = "https://image.tmdb.org/t/p/w500" + posterPath
-            if let url = URL(string: fullPath) {
-                URLSession.shared.dataTask(with: url) { data, _, error in
-                    if let data = data, let image = UIImage(data: data) {
-                        DispatchQueue.main.async {
-                            cell.movieImageView.image = image
-                        }
+        let fullPath = "https://image.tmdb.org/t/p/w500" + movie.posterPath
+        if let url = URL(string: fullPath) {
+            URLSession.shared.dataTask(with: url) { data, _, _ in
+                if let data = data, let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        cell.movieImageView.image = image
                     }
-                }.resume()
-            }
+                }
+            }.resume()
         } else {
             cell.movieImageView.image = UIImage(named: "placeholder")
         }
@@ -86,9 +97,15 @@ class FavoritesVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
     }
     
     func didTapDeleteButton(cell: FavoritesTableCell) {
+        guard let userId = Auth.auth().currentUser?.uid else { return }
         if let indexPath = tableView.indexPath(for: cell) {
             let movieToDelete = favorites[indexPath.row]
-            CoreDataManager.shared.deleteFavorite(movie: movieToDelete, from: self)
+            firebaseModel.deleteFromFavorites(userId: userId, movieId: movieToDelete.id) { succes in
+                if succes {
+                    print("Silindi")
+                }
+            }
+            //CoreDataManager.shared.deleteFavorite(movie: movieToDelete, from: self)
             favorites.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
@@ -109,9 +126,9 @@ class FavoritesVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
 
         let movie = Movie(
             id: 0,
-            title: selectedMovie.title ?? "",
-            overview: selectedMovie.overview ?? "",
-            posterPath: selectedMovie.posterPath ?? "",
+            title: selectedMovie.title,
+            overview: selectedMovie.overview,
+            posterPath: selectedMovie.posterPath,
             releaseDate: selectedMovie.releaseDate ?? "",
             runtime: Int(selectedMovie.runtime ?? 0),
             voteAverage: selectedMovie.voteAverage ?? 0,
