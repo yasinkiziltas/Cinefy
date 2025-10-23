@@ -10,7 +10,7 @@ import FirebaseFirestore
 import FirebaseAuth
 
 class FirebaseModel {
-    private let db = Firestore.firestore()
+    let db = Firestore.firestore()
     
     // MARK: - Kullanıcı İşlemleri
     func addUserData(userId: String, name: String, email: String, completion: @escaping (Error?) -> Void) {
@@ -55,7 +55,6 @@ class FirebaseModel {
        }
     
     //MARK: - Favoriler
-    
     func getFavorites(for userId: String, completion: @escaping ([Movie]) -> Void) {
         db.collection("users")
           .document(userId)
@@ -88,6 +87,7 @@ class FirebaseModel {
     }
     
     func addFavorites(userId: String, movie: Movie, from viewController: UIViewController, completion: ((Error?) -> Void)?) {
+        
         isAlreadyFavorited(userId: userId, movieId: movie.id) { [weak self] isFavorited in
             guard let self = self else { return }
             
@@ -116,6 +116,7 @@ class FirebaseModel {
                         UIHelper.makeAlert(on: viewController, title: "Hata!", message: "Favoriye eklenemedi: \(error.localizedDescription)")
                     } else {
                         UIHelper.makeAlert(on: viewController, title: "Başarılı!", message: "Favorilere eklendi.")
+                        self.addNotification(userId: userId, title: movie.title, isDeletion: false)
                     }
                     completion?(error)
                 }
@@ -170,10 +171,95 @@ class FirebaseModel {
                     }
                 }
                 
+                let title = documents.first!.data()["title"] as? String ?? "Bilinmiyor"
+                
                 group.notify(queue: .main) {
                     print("Favori başarıyla silindi.")
+                    self.addNotification(userId: userId, title: title, isDeletion: true)
                     completion?(true)
                 }
             }
+    }
+    
+    //MARK: - Bildirimler
+    func addNotification(userId: String, title: String, isDeletion: Bool) {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.yyyy HH:mm"
+        let dateString = formatter.string(from: Date())
+        let logText = isDeletion ? "\"\(title)\" favorilerden \(dateString) tarihinde kaldırıldı." : "\"\(title)\" \(dateString) tarihinde favorilere eklendi."
+        
+        let data: [String : Any] = [
+            "title" : title,
+            "createDate" : formatter.string(from: Date()),
+            "isDeletion" : isDeletion,
+            "notifyText" : logText
+        ]
+        
+        db.collection("users")
+            .document(userId)
+            .collection("notifications")
+            .addDocument(data: data) { error in
+                if let error = error {
+                    print("Hata: \(error)")
+                }
+            }
+    }
+    
+
+    func getNotifications(userId: String, completion: @escaping ([Dictionary<String, Any>]) -> Void) {
+        let db = Firestore.firestore()
+        
+        db.collection("users")
+            .document(userId)
+            .collection("notifications")
+            .order(by: "createDate", descending: true)
+            .getDocuments { snapshot, error in
+                if let error = error {
+                    print("Bildirimler alınamadı: \(error.localizedDescription)")
+                    completion([])
+                    return
+                }
+                
+                guard let documents = snapshot?.documents else {
+                    completion([])
+                    return
+                }
+                
+                // Her bildirimi sözlük (dictionary) olarak döndür
+                let notifications = documents.map { $0.data() }
+                completion(notifications)
+            }
+    }
+    
+    func deleteAllNotifications(userId: String, completion: @escaping (Bool) -> Void) {
+        let userNotifications = db.collection("users").document(userId).collection("notifications")
+        
+        userNotifications.getDocuments { snapshot, error in
+            if let error = error {
+                print("Bildirimler alınamadı: \(error.localizedDescription)")
+                completion(false)
+                return
+            }
+            
+            guard let documents = snapshot?.documents else {
+                completion(true)
+                return
+            }
+            
+            let batch = self.db.batch()
+            for doc in documents {
+                batch.deleteDocument(doc.reference)
+            }
+            
+            batch.commit { error in
+                if let error = error {
+                    print("Bildirimler silinemedi: \(error.localizedDescription)")
+                    completion(false)
+                } else {
+                    print("Tüm bildirimler başarıyla silindi.")
+                    completion(true)
+                }
+            }
+        }
     }
 }
