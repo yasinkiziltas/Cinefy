@@ -14,6 +14,9 @@ class MovieCategoryVC: UIViewController {
     @IBOutlet weak var txtSubTitle: UILabel!
     @IBOutlet weak var searchBar: UISearchBar!
     
+    var currentPage = 1
+    var totalPages = 1
+    
     var selectedGenreId: Int?
     
     var movies: [Movie] = []
@@ -77,31 +80,53 @@ class MovieCategoryVC: UIViewController {
         tabBarController?.tabBar.barTintColor = darkColor
         tabBarController?.tabBar.backgroundColor = darkColor
         tabBarController?.tabBar.isTranslucent = false
-
-        // İlgili kategorideki verileri çekme
-        if let genreId = selectedGenreId {
-            MovieService.shared.fetchMoviesByGenre(genreId: genreId) { result in
-                switch result {
-                case .success(let movies):
-                    DispatchQueue.main.async {
-                        self.movies = movies
-                        self.filterData = movies
-                        self.dataTable.reloadData()
-                    }
-                case .failure(let error):
-                    print("Hata: \(error)")
-                }
-            }
-        }
+        
+        fetchMovies(page: currentPage)
     }
 
     // Üst saat, pil gibi şeylerin açık görünmesi için (beyaz yapar)
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
+    
 }
 
 extension MovieCategoryVC: UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
+    
+    func fetchMovies(page: Int) {
+        if let genreId = selectedGenreId {
+            MovieService.shared.fetchMoviesByGenre(pageId: page, genreId: genreId) { [weak self] result in
+                DispatchQueue.main.async {
+                    guard let self = self else { return }
+                    
+                    switch result {
+                    case .success(let response):
+                        self.movies.append(contentsOf: response.results)
+                        self.totalPages = response.totalPages
+                        self.dataTable.reloadData()
+                        
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+            }
+        }
+    }
+    
+    //Scroll aşağı çektikçe filmleri getirme
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+            let offsetY = scrollView.contentOffset.y
+            let contentHeight = scrollView.contentSize.height
+            let height = scrollView.frame.size.height
+
+            if offsetY > contentHeight - height * 2 {
+                if currentPage < totalPages {
+                    currentPage += 1
+                    fetchMovies(page: currentPage)
+                }
+            }
+        }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return currentMovie.count
     }

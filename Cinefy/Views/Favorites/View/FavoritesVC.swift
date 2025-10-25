@@ -34,6 +34,7 @@ class FavoritesVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         tableView.backgroundView = emptyLabel
         tableView.backgroundView?.isHidden = true
         
+        
         fetchMovies()
     }
     
@@ -41,6 +42,14 @@ class FavoritesVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         super.viewWillAppear(animated)
         fetchMovies()
         updateEmptyState()
+        
+        if let tabBar = tabBarController?.tabBar {
+                tabBar.isTranslucent = false
+                tabBar.backgroundImage = UIImage()
+                tabBar.shadowImage = UIImage()
+                tabBar.barTintColor = darkColor // veya darkColor, hangisi senin temana uyuyorsa
+                tabBar.backgroundColor = darkColor
+            }
     }
     
     func updateEmptyState() {
