@@ -122,8 +122,8 @@
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="gm"/>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="veya" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ARm-Hm-SA7">
-                                <rect key="frame" x="178" y="265" width="38" height="20"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="veya" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ARm-Hm-SA7">
+                                <rect key="frame" x="178" y="265" width="44" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="BGj-fI-LpW"/>
                                 </constraints>
@@ -162,7 +162,7 @@
                             <constraint firstItem="kDL-69-Moj" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="121" id="eit-mr-Ade"/>
                             <constraint firstItem="435-zV-wQa" firstAttribute="top" secondItem="J40-2I-TcE" secondAttribute="top" id="g6x-Aq-sKk"/>
                             <constraint firstItem="obI-2n-G7f" firstAttribute="trailing" secondItem="EVy-bW-qda" secondAttribute="trailing" id="gwd-hS-ntM"/>
-                            <constraint firstItem="8we-dC-D6r" firstAttribute="centerX" secondItem="ARm-Hm-SA7" secondAttribute="centerX" id="jMd-7B-aPd"/>
+                            <constraint firstItem="8we-dC-D6r" firstAttribute="centerX" secondItem="ARm-Hm-SA7" secondAttribute="centerX" constant="-3.5" id="jMd-7B-aPd"/>
                             <constraint firstItem="DA8-YQ-QEr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="125" id="l6Q-oU-Jdz"/>
                             <constraint firstItem="obI-2n-G7f" firstAttribute="top" secondItem="mh5-bx-jiA" secondAttribute="bottom" constant="8" symbolic="YES" id="oIY-Vh-lfb"/>
                             <constraint firstItem="ARm-Hm-SA7" firstAttribute="top" secondItem="435-zV-wQa" secondAttribute="bottom" constant="37" id="qqW-AG-DRw"/>
@@ -431,7 +431,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pk0-PC-dPy">
+                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pk0-PC-dPy">
                                                     <rect key="frame" x="323" y="37" width="61" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>

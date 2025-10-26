@@ -28,7 +28,6 @@ class HomeVC: UIViewController, HSCycleGalleryViewDelegate, UICollectionViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.backButtonTitle = "Geri"
-       
         
         // Arka plan ayarları
         UIHelper.backgroundColorFunc(on: self)

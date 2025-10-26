@@ -52,6 +52,32 @@ class UIHelper {
         controller.present(alert, animated: true, completion: nil)
     }
     
+    //Onaylama Alert
+    static func makeConfirmAlert(on controller: UIViewController, title: String, message: String, confirmHandler: (() -> Void)? = nil) {
+        let alert = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction (
+            title: "Sil",
+            style: .destructive,
+            handler: { _ in
+                confirmHandler?()
+            }
+        ))
+        alert.addAction(UIAlertAction (
+            title: "İptal",
+            style: .cancel,
+            handler: nil
+        ))
+        
+        controller.present(alert,
+                animated: true,
+                completion: nil
+        )
+    }
+    
     //Arkaplan renk ayarı
     static func backgroundColorFunc(on controller: UIViewController) {
         let darkBackground = UIColor(red: 8/255, green: 14/255, blue: 36/255, alpha: 1.0)

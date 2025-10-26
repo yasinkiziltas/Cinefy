@@ -11,15 +11,18 @@ import FirebaseCore
 import FirebaseAuth
 
 
-class FavoritesVC: UIViewController, UITableViewDelegate, UITableViewDataSource, FavoritesTableCellDelegate {
+class FavoritesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
     let firebaseModel = FirebaseModel()
     var favorites = [Movie]()
     let darkColor = UIColor(red: 8/255, green: 14/255, blue: 36/255, alpha: 1)
+    var userId: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        userId = Auth.auth().currentUser?.uid
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = darkColor
@@ -63,8 +66,8 @@ class FavoritesVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
     }
     
     func fetchMovies() {
-        guard let userId = Auth.auth().currentUser?.uid else { return }
-        firebaseModel.getFavorites(for: userId) {[weak self] movies in
+       
+        firebaseModel.getFavorites(for: userId ?? "") {[weak self] movies in
             self?.favorites = movies
             
             DispatchQueue.main.async {
@@ -72,8 +75,6 @@ class FavoritesVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
                 self?.updateEmptyState()
             }
         }
-       
-        //favorites = CoreDataManager.shared.fetchFavorites()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -101,23 +102,8 @@ class FavoritesVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         cell.movieTitleLabel.textColor = .white
         cell.selectionStyle = .none
         cell.backgroundColor = darkColor
-        cell.delegate = self
+        //cell.delegate = self
         return cell
-    }
-    
-    func didTapDeleteButton(cell: FavoritesTableCell) {
-        guard let userId = Auth.auth().currentUser?.uid else { return }
-        if let indexPath = tableView.indexPath(for: cell) {
-            let movieToDelete = favorites[indexPath.row]
-            firebaseModel.deleteFromFavorites(userId: userId, movieId: movieToDelete.id) { succes in
-                if succes {
-                    print("Silindi")
-                }
-            }
-            //CoreDataManager.shared.deleteFavorite(movie: movieToDelete, from: self)
-            favorites.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .automatic)
-        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -146,6 +132,44 @@ class FavoritesVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         )
         performSegue(withIdentifier: "toDetailVCFromFavorites", sender: movie)
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            UIHelper.makeConfirmAlert(on: self, title: "Uyarı", message: "Silmek istediğinize emin misiniz?") {
+                let movieToDelete = self.favorites[indexPath.row]
+                
+                self.firebaseModel.deleteFromFavorites(userId: self.userId ?? "", movieId: movieToDelete.id) { success in
+                    if success {
+                        DispatchQueue.main.async {
+                            self.favorites.remove(at: indexPath.row)
+                            tableView.deleteRows(at: [indexPath], with: .automatic)
+                            self.updateEmptyState()
+                            print("Favoriden silindi ✅")
+                        }
+                    } else {
+                        print("❌ Silme başarısız")
+                    }
+                }
+            }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "Kaldır"
+    }
+    
+//    func didTapDeleteButton(cell: FavoritesTableCell) {
+//        if let indexPath = tableView.indexPath(for: cell) {
+//            let movieToDelete = favorites[indexPath.row]
+//            firebaseModel.deleteFromFavorites(userId: userId ?? "", movieId: movieToDelete.id) { succes in
+//                if succes {
+//                    print("Silindi")
+//                }
+//            }
+//            favorites.remove(at: indexPath.row)
+//            tableView.deleteRows(at: [indexPath], with: .automatic)
+//        }
+//    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
