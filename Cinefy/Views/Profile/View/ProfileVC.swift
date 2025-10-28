@@ -14,9 +14,10 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var txtEmail: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
+    //Ayarlar - gearshape
     var selectedItem: String?
-    var menuNames = ["Profili Düzenle", "Ayarlar", "Yardım Merkezi", "Çıkış"]
-    var menuImgs = ["person.crop.circle", "gearshape", "questionmark.circle", "arrow.backward.circle"]
+    var menuNames = ["Profili Düzenle", "Yardım Merkezi", "Çıkış"]
+    var menuImgs = ["person.crop.circle", "questionmark.circle", "arrow.backward.circle"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,11 +59,8 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         switch selectedItem {
           case "Profili Düzenle":
             self.performSegue(withIdentifier: "toEditProfile", sender: nil)
-        case "Ayarlar":
-            self.performSegue(withIdentifier: "toSettings", sender: nil)
         case "Yardım Merkezi":
             UIHelper.makeAlert(on: self, title: "Uyarı", message: "Bu sayfa geliştirme aşamasında..")
-            //self.performSegue(withIdentifier: "toHelpCenter", sender: nil)
         case "Çıkış":
             do {
                 try Auth.auth().signOut()
@@ -70,7 +68,6 @@ class ProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             } catch {
                 print("Hata!")
             }
-            
         default:
             break
         }
