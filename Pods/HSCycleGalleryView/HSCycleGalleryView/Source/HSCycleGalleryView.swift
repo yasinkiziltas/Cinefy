@@ -44,7 +44,8 @@ public class HSCycleGalleryView: UIView {
     override public init(frame: CGRect) {
         super.init(frame: frame)
         
-        collectionView = UICollectionView(frame: frame, collectionViewLayout: HSCycleGalleryViewLayout())
+        collectionView = UICollectionView(frame: bounds, collectionViewLayout: HSCycleGalleryViewLayout())
+        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.backgroundColor = contentBackgroundColor
@@ -176,6 +177,11 @@ extension HSCycleGalleryView: UICollectionViewDelegate, UICollectionViewDataSour
     
     public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         removeTimer()
+    }
+    
+    override public func layoutSubviews() {
+        super.layoutSubviews()
+        collectionView.frame = bounds
     }
 }
 

@@ -134,6 +134,12 @@ class HomeVC: UIViewController, HSCycleGalleryViewDelegate, UICollectionViewDele
         }
     }
     
+    func cycleGalleryView(_ cycleGalleryView: HSCycleGalleryView, didSelectItemCell cell: UICollectionViewCell, at Index: Int) {
+        let selectedIndex = Index
+        let movie = movies[selectedIndex]
+        self.performSegue(withIdentifier: "toDetailFromHome", sender: movie)
+    }
+    
     //Kategori butonları
     @IBAction func btnAction(_ sender: Any) {
         self.performSegue(withIdentifier: "goToCategory", sender: 28)
